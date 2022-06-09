@@ -2,12 +2,16 @@
 title: "Documentação app indicadores oasisbr"
 author: "Lucca de Farias Ramalho"
 output:
-  word_document: default
   md_document:
     variant: markdown_github
+  word_document: default
   pdf_document: default
   html_document: default
 ---
+# <img src="www/oasisbr.png" align="right" height="100px" alt="" />
+
+## Indicadores oasisbr
+### Documentação R-Shiny app
 
 1. Acesso à API e download de arquivo com indicadores
 2. Análise exploratória dos dados

@@ -1,3 +1,9 @@
+# <img src="www/oasisbr.png" align="right" height="100px" alt="" />
+
+## Indicadores oasisbr
+
+### Documentação R-Shiny app
+
 1.  Acesso à API e download de arquivo com indicadores
 2.  Análise exploratória dos dados
 3.  Instalação de servidores RStudio e RShiny
@@ -5,12 +11,31 @@
 
 ## Download de arquivos com informações sobre os indicadores
 
-Os indicadores da oasisbr são disponibilizados via api. Mais informações
-sobre a api: `https://oasisbr.ibict.br/vufind/api/v1/`
+1.  Os indicadores da oasisbr são disponibilizados via api.  
 
 ``` r
 oasisbrAPILink <- "https://oasisbr.ibict.br/vufind/api/v1/search?&type=AllFields&page=0&limit=0&sort=relevance&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv"
 ```
+
+------------------------------------------------------------------------
+
+## Indicadores de evolução:
+
+<https://api-oasisbr.ibict.br/api/v1/evolution-indicators?init=10/10/2017&end=10/10/2021>
+
+------------------------------------------------------------------------
+
+## Documentação indicadores de evolução:
+
+<https://api-oasisbr.ibict.br/api/v1/doc/#/default/EvolutionIndicatorsController_find>
+
+------------------------------------------------------------------------
+
+Mais informações sobre a api:  
+<https://oasisbr.ibict.br/vufind/api/v1/>  
+Mais informações sobre `facets`:  
+[Apache Solr Reference Guide 6.6 -
+Faceting](%60https://solr.apache.org/guide/6_6/faceting.html%60)
 
 É feito o download do arquivo em formato `JSON` via pacote `jsolinte`,
 utilizando-se a função `fromJSON`.
@@ -39,7 +64,7 @@ recuperados:
 oasisbrDF$resultCount
 ```
 
-    ## [1] 2758152
+    ## [1] 3010384
 
 ------------------------------------------------------------------------
 
@@ -75,20 +100,20 @@ A coluna `value` representa o valor, `translated` o valor traduzido,
 head(oasisbrDF$facets$author_facet)
 ```
 
-    ##                             value                      translated count
-    ## 1         Ferreira, Isabel C.F.R.         Ferreira, Isabel C.F.R.  1974
-    ## 2                     Reis, R. L.                     Reis, R. L.  1545
-    ## 3                 Barros, Lillian                 Barros, Lillian  1430
-    ## 4                 Teixeira, J. A.                 Teixeira, J. A.  1400
-    ## 5                 Sirunyan, A. M.                 Sirunyan, A. M.  1187
-    ## 6 Instituto de Engenharia Nuclear Instituto de Engenharia Nuclear  1102
-    ##                                                                                        href
-    ## 1       ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Ferreira%2C+Isabel+C.F.R.%22
-    ## 2                   ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Reis%2C+R.+L.%22
-    ## 3               ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Barros%2C+Lillian%22
-    ## 4               ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Teixeira%2C+J.+A.%22
-    ## 5               ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Sirunyan%2C+A.+M.%22
-    ## 6 ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Instituto+de+Engenharia+Nuclear%22
+    ##                     value              translated count
+    ## 1 Ferreira, Isabel C.F.R. Ferreira, Isabel C.F.R.  1986
+    ## 2             Reis, R. L.             Reis, R. L.  1560
+    ## 3               Adams, T.               Adams, T.  1497
+    ## 4         Sirunyan, A. M.         Sirunyan, A. M.  1450
+    ## 5         Barros, Lillian         Barros, Lillian  1448
+    ## 6            Banerjee, S.            Banerjee, S.  1432
+    ##                                                                                  href
+    ## 1 ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Ferreira%2C+Isabel+C.F.R.%22
+    ## 2             ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Reis%2C+R.+L.%22
+    ## 3               ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Adams%2C+T.%22
+    ## 4         ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Sirunyan%2C+A.+M.%22
+    ## 5         ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Barros%2C+Lillian%22
+    ## 6            ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Banerjee%2C+S.%22
 
 ------------------------------------------------------------------------
 
@@ -176,6 +201,15 @@ O Rstudio server é disponibilizado na porta `8787`.
 O R-Shiny server é disponibilizado na porta `3838`.
 
 ------------------------------------------------------------------------
+
+### Iniciando e parando o servidor
+
+Para iniciar ou parar servidor, basta usar os seguintes comando:  
+`sudo systemctl start shiny-server` `sudo systemctl stop shiny-server`
+
+Também é possível reiniciar o servidor, usando:
+
+`sudo systemctl restart shiny-server`
 
 ### Pasta com aplicativos
 
