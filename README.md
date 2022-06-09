@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # <img src="www/oasisbr.png" align="right" height="100px" alt="" />
 
 ## Indicadores oasisbr
@@ -6,7 +5,6 @@
 ### Documentação R-Shiny app
 =======
 ## Indicadores oasisbr - Documentação R-Shiny App
->>>>>>> 816bee15f480b3f5fbcacb77cc6d692447b5de08
 
 1.  Acesso à API e download de arquivo com indicadores
 2.  Análise exploratória dos dados
