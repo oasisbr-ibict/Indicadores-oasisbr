@@ -37,18 +37,34 @@ publishDate <- subset(publishDate, value %in% c(y:z))
 
 publishDatePlot <- ggplot(publishDate) +
   aes(x = value, group = value, weight = count,
-      text=paste("Ano de publicação:",value,"<br>","Quantidade",comma(count),"<br>% do total",scales::percent(pctTotal))) +
+      
+      text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Ano de publicação:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
+                 "<br><br>",
+                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Quantidade de documentos:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(count),"</b>",
+                 "<br><br>",
+                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
+      )
+      
+     # text=paste("Ano de publicação:",value,"<br>","Quantidade",comma(count),"<br>% do total",scales::percent(pctTotal))
+      
+      ) +
   geom_bar(fill = "#112446") +
-  labs(x = "Ano de publicação", 
-       y = "Total de documentos", title = NULL) +
+  labs(x = "<b style='color:gray; font-size:14px'>Ano de publicação</b><br><b style='color:white'>.", 
+       y = "<b style='color:gray; font-size:14px'>Total de documentos<br><b style='color:white'>.", title = NULL) +
   theme_minimal() +
+  scale_y_continuous(labels = scales::comma)+
+  scale_x_continuous(breaks=min(publishDate$value):max(publishDate$value))+
+  #scale_x_discrete()+
   theme(axis.title.x = element_text(size = 14L))
 publishDatePlotly <- ggplotly(publishDatePlot, tooltip="text")
 
 publishDatePlotly %>% 
-  layout(font=t,
-         xaxis=list(title=list("Total de documentos",font=t)),
-         yaxis=list(title=list("Ano de publicação",font=t))
-  )
+  layout(font=t) %>% config(displayModeBar = F) 
+  
 
 }
+
+
