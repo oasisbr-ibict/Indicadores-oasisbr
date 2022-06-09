@@ -33,6 +33,15 @@ authorPlot <- ggplot(author_facet) +
   theme_minimal() +
   theme(axis.title.x = element_text(size = 14L)) +
   coord_flip()
-return(ggplotly(authorPlot, tooltip="text"))
+
+authorPlot <- ggplotly(authorPlot, tooltip="text")
+
+authorPlot %>%
+  layout(font=t,
+         xaxis=list(title=list("Total de documentos",font=t)),
+         yaxis=list(title=list("Nome do autor(a)",font=t))
+  )
+
+
 
 }

@@ -1,0 +1,35 @@
+   @import url('https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,400;1,100&display=swap');
+    
+  .body { font-family: Lato !important; }
+    
+  .selectize-input > * { font-family: Lato !important;  font-weight:600; }
+    
+  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 { font-family: Lato !important; font-weight:600; }
+    
+  .btn-default { font-family: Lato !important; background-color: #F8C300; font-weight:600; }
+    
+  .label { font-family: Lato !important; }
+    
+  .form-control:not(select) { font-family: Lato !important; }
+    
+  .shiny-output-error-validation { color: green; font-size:20px; }
+      
+  .small-box>.inner { height:110px; }
+      
+  .small-box .icon-large { right:12px; }
+      
+  label { font-family: Lato !important; }
+  
+  
+  .small-box p { font-family: Lato !important; font-weight:600; }
+  
+  
+  .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single { font-family: Lato !important; font-weight:600;  }
+  
+  .irs--shiny .irs-min, .irs--shiny .irs-max   { font-family: Lato !important; font-weight:600;  }
+  
+  .irs-grid-text { font-family: Lato !important; font-weight:600;  }
+  
+  .form-control:not(select) { font-family: Lato !important; font-weight:600;  }
+  
+  .shiny-bound-output { font-family: Lato !important; font-weight:600; }
