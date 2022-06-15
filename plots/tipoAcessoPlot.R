@@ -17,6 +17,9 @@ tipoAcesso_facet <- left_join(traducao_tipoAcesso,tipoAcesso_facet)
 ## Ordena coluna 'count'
 tipoAcesso_facet <- tipoAcesso_facet[with(tipoAcesso_facet, order(-count)),]
 
+##
+tipoAcesso_facet <- tipoAcesso_facet %>% mutate(pctTotal=count/x$resultCount)
+
 ## Retira registro 'sem informação' da coluna 'value'
 tipoAcesso_facet <- tipoAcesso_facet[tipoAcesso_facet$translated!='sem informação',]
 
@@ -26,8 +29,19 @@ tipoAcesso_facet <- tipoAcesso_facet[tipoAcesso_facet$translated!='sem informaç
 #data.frame(
 
 tipoAcessoPlotly <- tipoAcesso_facet %>% 
-  plot_ly(labels = ~valuePor, values = ~count) %>% 
-  add_pie(hole = 0.6)
+  plot_ly(labels = ~valuePor, values = ~count,
+          hovertext = paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400;">Tipo de documento:</b>',
+                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',tipoAcesso_facet$valuePor,"</b>",
+                            "<br><br>",
+                            '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; ">Total de documentos:</b>',
+                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',scales::comma(tipoAcesso_facet$count),"</b>",
+                            "<br><br>",
+                            '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; "">% do total:</b>',
+                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',scales::percent(tipoAcesso_facet$pctTotal),"</b>"
+          ),
+          hoverinfo = "text"
+          ) %>% 
+  add_pie(hole = 0.6) %>% layout(font=t)
 
 return(tipoAcessoPlotly)
 

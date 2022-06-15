@@ -32,19 +32,31 @@ program <- head(program, n=y)
 
 programPlot <- ggplot(program) +
   aes(x = reorder(value, count), group = value, weight = count, 
-      text=paste("Programa de pós-graduação:",value,"<br>","Quantidade",comma(count),"<br>Porcentagem do total",pctTotal)) +
+      text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Programa de pós-graduação:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
+                 "<br><br>",
+                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(count),"</b>",
+                 "<br><br>",
+                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
+      )
+      #text=paste("Programa de pós-graduação:",value,"<br>","Quantidade",comma(count),"<br>Porcentagem do total",pctTotal)
+      
+      ) +
   geom_bar(fill = "#112446") +
-  labs(x = "Programa de pós-graduação", 
-       y = "Total de documentos", title = NULL) +
+  scale_y_continuous(labels = scales::comma)+
+  labs(x = "<b style='color:gray'>Programa de pós-graduação</b><br><br><b style='color:white'>.", 
+       y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +
   theme_minimal() +
   theme(axis.title.x = element_text(size = 14L)) + coord_flip()
 programPlotly <- ggplotly(programPlot, tooltip="text")
 
 programPlotly %>%
-  layout(font=t,
-         xaxis=list(title=list("Total de documentos",font=t)),
-         yaxis=list(title=list("Programa de pós-graduação",font=t))
-  )
+  layout(font=t, 
+         margin = list(l=50,b = 55),
+         hoverlabel=list(bgcolor="white")
+  ) %>% config(displayModeBar = F) 
 
 }
 
