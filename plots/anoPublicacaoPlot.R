@@ -48,7 +48,6 @@ publishDatePlot <- ggplot(publishDate) +
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
       )
       
-     # text=paste("Ano de publicação:",value,"<br>","Quantidade",comma(count),"<br>% do total",scales::percent(pctTotal))
       
       ) +
   geom_bar(fill = "#112446") +
@@ -62,7 +61,7 @@ publishDatePlot <- ggplot(publishDate) +
 publishDatePlotly <- ggplotly(publishDatePlot, tooltip="text")
 
 publishDatePlotly %>% 
-  layout(font=t) %>% config(displayModeBar = F) 
+  layout(font=t, hoverlabel=list(bgcolor="white")) %>% config(displayModeBar = F) 
   
 
 }

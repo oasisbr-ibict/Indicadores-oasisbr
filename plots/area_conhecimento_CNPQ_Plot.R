@@ -71,7 +71,7 @@ subject_cnpqPlot <- ggplot(subject_cnpq) +
       text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Área do conhecimento CNPQ:</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',tratado,"</b>",
                  "<br><br>",
-                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Quantidade de documentos:</b>',
+                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(total),"</b>",
                  "<br><br>",
                  '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
@@ -88,8 +88,7 @@ subject_cnpqPlot <- ggplot(subject_cnpq) +
 
 ggplotly(subject_cnpqPlot, tooltip="text") %>% 
   
-  layout(font=t, separators=".",
-
+  layout(font=t, 
          margin = list(l=50,b = 55),
          hoverlabel=list(bgcolor="white")
          ) %>% config(displayModeBar = F) 
