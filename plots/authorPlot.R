@@ -40,7 +40,7 @@ authorPlot <- ggplot(author_facet) +
   geom_bar(fill = "#112446") +
   
   scale_y_continuous(labels = scales::comma)+
-  labs(x = "<b style='color:gray'>Área do conhecimento CNPQ</b><br><br><b style='color:white'>.", 
+  labs(x = "<b style='color:gray'>Autor(a)</b><br><br><b style='color:white'>.", 
        y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +
   
   theme_minimal() +

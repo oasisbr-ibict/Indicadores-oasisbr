@@ -40,6 +40,8 @@ source("plots/tipoDocumentoPlot.R", encoding="UTF-8")
 source("plots/tipoAcessoPlot.R", encoding="UTF-8")
 source("plots/programPlot.R", encoding="UTF-8")
 source("plots/wordcloud2_bugfix.R", encoding="UTF-8")
+source("plots/pesquisador_orientacoesPlot.R", encoding="UTF-8")
+source("plots/instituicoes_Plot.R", encoding="UTF-8")
 
 
 # Importa funcões

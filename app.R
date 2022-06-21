@@ -76,7 +76,19 @@ hr(),
  box(
    title = "Documentos por tipo de acesso", width = 12, solidHeader = TRUE, status = "primary",
    column(12,addSpinner(plotlyOutput("tipoAcessoPlotlyOutput"),spin="folding-cube",color="green")),
- )
+ ),
+
+ box(
+  title = "Pesquisadores com mais orientações", width = 12, solidHeader = TRUE, status = "primary",
+  column(12,numericInput("pesquisadorTopInput","Termos exibidos",10,width="20%")),
+  column(12,addSpinner(plotlyOutput("pesquisadorPlotlyOutput"),spin="folding-cube",color="green")),
+ ),
+
+ box(
+  title = "Instituições com mais documentos", width = 12, solidHeader = TRUE, status = "primary",
+  column(12,numericInput("instituicoesTopInput","Termos exibidos",10,width="20%")),
+  column(12,addSpinner(plotlyOutput("instituicoesPlotlyOutput"),spin="folding-cube",color="green")),
+)
 
 )
 )
@@ -177,6 +189,10 @@ server <- function(input, output, session) {
   
   output$tipoAcessoPlotlyOutput <- renderPlotly({renderTipoAcessoPlot(oasisbrBuscaUser())})
   
+  output$pesquisadorPlotlyOutput <- renderPlotly({render_pesquisadorPlot(oasisbrBuscaUser(),input$pesquisadorTopInput)})
+  
+  output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
+  
   ## Cria DF reativo para a busca do usuário e atualiza outputs
   
   observeEvent(input$buscarButton,{
@@ -209,6 +225,10 @@ server <- function(input, output, session) {
     output$tipoAcessoPlotlyOutput <- renderPlotly({renderTipoAcessoPlot(oasisbrBuscaUser())})
     
     output$programPlotlyOutput <- renderPlotly({renderProgramPlot(oasisbrBuscaUser(),input$programTopInput)})
+    
+    output$pesquisadorPlotlyOutput <- renderPlotly({render_pesquisadorPlot(oasisbrBuscaUser(),input$pesquisadorTopInput)})
+    
+    output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
     
    # output$totalDocumentosOutput <- renderText({ scales::comma(total_de_documentos) })
     
