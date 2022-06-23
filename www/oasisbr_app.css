@@ -12,7 +12,7 @@
     
   .form-control:not(select) { font-family: Lato !important; }
     
-  .shiny-output-error-validation { color: green; font-size:20px; }
+  .shiny-output-error-validation { color: green; font-size:20px; font-family: Lato !important; font-weight:600; }
       
   .small-box>.inner { height:110px; }
       
@@ -20,9 +20,7 @@
       
   label { font-family: Lato !important; }
   
-  
   .small-box p { font-family: Lato !important; font-weight:600; }
-  
   
   .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single { font-family: Lato !important; font-weight:600;  }
   

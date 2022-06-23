@@ -32,9 +32,7 @@ column(offset = 1, 10,
   )),
   
   ## Texto com resultado da busca
-  column(12,
-         
-         uiOutput("resultadosDaBuscaTextoOutput")),
+  column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
   )),
 #====== MODULO GRAFICOS 
