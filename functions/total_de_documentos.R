@@ -1,2 +1,5 @@
-total_de_documentos <- fromJSON("http://localhost/vufind/api/v1/search?&type=AllFields&page=0&limit=0&sort=relevance")
-total_de_documentos <- total_de_documentos$resultCount
+df_local <- fromJSON("http://localhost/vufind/api/v1/search?&type=AllFields&page=0&limit=0&sort=relevance&facet[]=institution")
+total_de_documentos <- df_local$resultCount
+
+
+total_de_instituicoes <- length(unique(df_local$facets$institution$value))

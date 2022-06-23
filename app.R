@@ -19,6 +19,11 @@ ui <- fluidPage(
     "Total de documentos", 
     icon = icon("database")
     ),
+  valueBox(
+    h3(textOutput("totalInstituicoesOutput")), 
+    "Total de instituicoes", 
+    icon = icon("building")
+  ),
 
   hr()),
 
@@ -73,6 +78,8 @@ server <- function(input, output, session) {
   ## FIM MODULO SERVER GRAFICOS
   
   output$totalDocumentosOutput <- renderText({ scales::comma(total_de_documentos) })
+  
+  output$totalInstituicoesOutput <- renderText({ scales::comma(total_de_instituicoes) })
 
 
   
