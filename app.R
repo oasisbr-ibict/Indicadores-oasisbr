@@ -37,9 +37,13 @@ column(offset = 1, 10,
   )),
   
   ## Texto com resultado da busca
+   
   column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
-  )),
+  ),
+#mod_texto_resultado_da_busca_UI("texto_resultado_da_busca")
+
+),
 #====== MODULO GRAFICOS 
 mod_graficos_UI("graficos")
 
@@ -99,7 +103,9 @@ server <- function(input, output, session) {
     
     mod_graficos_server("graficos")
     
+    #mod_texto_resultado_da_busca("texto_resultado_busca")
     # Criar função para definir objeto em texto
+   # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
     output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: 0 segundos.<hr>',sep="")) })
       
     }) 
