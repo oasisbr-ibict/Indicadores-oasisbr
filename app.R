@@ -32,7 +32,7 @@ column(offset = 1, 10,
        column(12,
          fluidRow(
            column(6,textInput("textoBuscaInput", label=NULL, placeholder = "Filtre os documentos pelos indicadores abaixo",width = "100%")),
-           column(3,selectInput("camposInput", label=NULL, choices = c("Todos os campos"="todos", "Título"="titulo", "Autor"="autor","Assunto"="assunto"),width="100%")),
+           column(3,selectInput("camposInput", label=NULL, choices = c("Todos os campos"="AllFields", "Título"="Title", "Autor"="Author","Assunto"="Subject"),width="100%")),
            column(3,actionButton("buscarButton", "Buscar",width="100%"))
   )),
   
@@ -55,8 +55,7 @@ server <- function(input, output, session) {
   ## Cria DF reativo com informações gerais
   oasisbrBuscaUser <<- reactive({
     tic("Download.")
-
-    oasisbrDF <- fromJSON("http://localhost/vufind/api/v1/search?&type=AllFields&page=0&limit=0&sort=relevance&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv")
+    busca_oasisbr(lookfor = "")
     toc()
 
 
@@ -95,8 +94,9 @@ server <- function(input, output, session) {
     
     oasisbrBuscaUser <<- reactive({
       
-      
-      oasisbrDF <- fromJSON(paste("http://localhost/vufind/api/v1/search?lookfor=",URLencode(input$textoBuscaInput),"&type=AllFields&page=0&limit=0&sort=relevance&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv",sep=""))
+      busca_oasisbr(lookfor = URLencode(input$textoBuscaInput),
+                    type=input$camposInput)
+     # oasisbrDF <- fromJSON(paste("http://localhost/vufind/api/v1/search?lookfor=",URLencode(input$textoBuscaInput),"&type=AllFields&page=0&limit=0&sort=relevance&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv",sep=""))
       
       
     })

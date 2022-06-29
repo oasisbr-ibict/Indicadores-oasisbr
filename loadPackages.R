@@ -47,3 +47,4 @@ source("plots/instituicoes_Plot.R", encoding="UTF-8")
 # Importa funcões
 source("functions/fonteGraficosPlotly.R",encoding="UTF-8")
 source("functions/total_de_documentos.R",encoding="UTF-8")
+source("functions/busca_oasisbr.R",encoding="UTF-8")
