@@ -47,14 +47,8 @@ server <- function(input, output, session) {
   
   ## Cria DF reativo com informações gerais
   oasisbrBuscaUser <<- reactive({
-    
-    start <- Sys.time ()
-    busca_oasisbr(lookfor = "")
-    tempo_de_busca <- (Sys.time () - start)
-    
-    
-    toc()
 
+    busca_oasisbr(lookfor = "")
 
   if ( exists("oasisbrDF")==TRUE ) { print("Servidor funcionando.")
 
@@ -86,8 +80,12 @@ mod_graficos_server("graficos")
     
     oasisbrBuscaUser <<- reactive({
       
-      busca_oasisbr(lookfor = URLencode(input$textoBuscaInput),
+      start <- Sys.time ()
+      x <- busca_oasisbr(lookfor = URLencode(input$textoBuscaInput),
                     type=input$camposInput)
+      
+      tempo_de_busca <<- (Sys.time () - start)
+      return(x)
       
     })
     
