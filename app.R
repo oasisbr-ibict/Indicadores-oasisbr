@@ -44,9 +44,10 @@ column(offset = 1, 10,
 #mod_texto_resultado_da_busca_UI("texto_resultado_da_busca")
 
 ),
+
 #====== MODULO GRAFICOS 
 mod_graficos_UI("graficos")
-
+#======
 )
 
 server <- function(input, output, session) {
