@@ -19,11 +19,6 @@ ui <- fluidPage(
     "Total de documentos", 
     icon = icon("database")
     ),
-  valueBox(
-    h3(textOutput("totalInstituicoesOutput")), 
-    "Total de instituicoes", 
-    icon = icon("building")
-  ),
 
   hr()),
 
@@ -35,17 +30,14 @@ column(offset = 1, 10,
            column(3,selectInput("camposInput", label=NULL, choices = c("Todos os campos"="AllFields", "Título"="Title", "Autor"="Author","Assunto"="Subject"),width="100%")),
            column(3,actionButton("buscarButton", "Buscar",width="100%"))
   )),
-  
-  ## Texto com resultado da busca
    
   column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
   ),
 #mod_texto_resultado_da_busca_UI("texto_resultado_da_busca")
-
 ),
 
-#====== MODULO GRAFICOS 
+#====== MODULO GRAFICOS UI
 mod_graficos_UI("graficos")
 #======
 )
@@ -55,8 +47,12 @@ server <- function(input, output, session) {
   
   ## Cria DF reativo com informações gerais
   oasisbrBuscaUser <<- reactive({
-    tic("Download.")
+    
+    start <- Sys.time ()
     busca_oasisbr(lookfor = "")
+    tempo_de_busca <- (Sys.time () - start)
+    
+    
     toc()
 
 
@@ -75,17 +71,12 @@ server <- function(input, output, session) {
   })
   
   
-  ## MODULO SERVER GRAFICOS ===========
-  
- mod_graficos_server("graficos")
-  
-  ## FIM MODULO SERVER GRAFICOS
+#====== MODULO GRAFICOS SERVER
+mod_graficos_server("graficos")
+#======
   
   output$totalDocumentosOutput <- renderText({ scales::comma(total_de_documentos) })
   
-  output$totalInstituicoesOutput <- renderText({ scales::comma(total_de_instituicoes) })
-
-
   
   ## Cria DF reativo para a busca do usuário e atualiza outputs
   
@@ -97,8 +88,6 @@ server <- function(input, output, session) {
       
       busca_oasisbr(lookfor = URLencode(input$textoBuscaInput),
                     type=input$camposInput)
-     # oasisbrDF <- fromJSON(paste("http://localhost/vufind/api/v1/search?lookfor=",URLencode(input$textoBuscaInput),"&type=AllFields&page=0&limit=0&sort=relevance&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv",sep=""))
-      
       
     })
     
@@ -107,7 +96,7 @@ server <- function(input, output, session) {
     #mod_texto_resultado_da_busca("texto_resultado_busca")
     # Criar função para definir objeto em texto
    # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
-    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: 0 segundos.<hr>',sep="")) })
+    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: ',substr(gsub("","",tempo_de_busca),1,5),' segundos.<hr>',sep="")) })
       
     }) 
     
