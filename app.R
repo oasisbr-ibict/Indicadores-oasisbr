@@ -76,13 +76,13 @@ mod_graficos_server("graficos")
   
   observeEvent(input$buscarButton,{
     
-    print(paste("Iniciado busca para termo:",input$textoBuscaInput))
+    print(paste("Iniciado busca para termo:",isolate(input$textoBuscaInput)))
     
     oasisbrBuscaUser <<- reactive({
       
       start <- Sys.time ()
-      x <- busca_oasisbr(lookfor = URLencode(input$textoBuscaInput),
-                    type=input$camposInput)
+      x <- busca_oasisbr(lookfor = URLencode(isolate(input$textoBuscaInput)),
+                    type=isolate(input$camposInput))
       
       tempo_de_busca <<- (Sys.time () - start)
       return(x)
@@ -91,10 +91,9 @@ mod_graficos_server("graficos")
     
     mod_graficos_server("graficos")
     
-    #mod_texto_resultado_da_busca("texto_resultado_busca")
-    # Criar função para definir objeto em texto
+   # Criar função para definir objeto em texto
    # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
-    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: ',substr(gsub("","",tempo_de_busca),1,5),' segundos.<hr>',sep="")) })
+    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',isolate(input$textoBuscaInput),'</span>".<br>Tempo de busca: ',substr(gsub("","",tempo_de_busca),1,5),' segundos.<hr>',sep="")) })
       
     }) 
     
