@@ -3,6 +3,7 @@ renderTipoDocumentoPlot <- function(x) {
 #############################
 ## Tipo de documento
 ### Cria subconjunto
+x <- busca_oasisbr(lookfor="")
 tipoDocumento_facet <- x$facets$format
 
 
@@ -28,6 +29,7 @@ tipoDocumento_facet <- tipoDocumento_facet %>% mutate(pctTotal=count/x$resultCou
 ## Treemap Idiomas
 
 tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~valuePor, 
+                               texttemplate=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400;">',tipoDocumento_facet$valuePor,"<br>",scales::comma(tipoDocumento_facet$count)),
                                values = ~count, 
                                parents = ~NA, 
                                type = 'treemap',

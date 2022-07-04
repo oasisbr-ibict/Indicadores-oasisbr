@@ -2,7 +2,7 @@ renderSubjectPlot <- function(x,y) {
 
 ## Área de conhecimento do CNPQ (dc.subject.cnpq.fl_str_mv)
 ### Cria subconjunto
-#x <- oasisbrDF
+#x <- busca_oasisbr(lookfor="")
 subject_cnpq <- x$facets$dc.subject.cnpq.fl_str_mv
 
 ## Validação para busca sem registros
