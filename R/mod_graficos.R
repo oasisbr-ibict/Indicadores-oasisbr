@@ -14,18 +14,20 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Documentos por tipo de acesso", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,addSpinner(plotlyOutput(ns("tipoAcessoPlotlyOutput"),height="475px"),spin="folding-cube",color="green")),
+               column(12,addSpinner(plotlyOutput(ns("tipoAcessoPlotlyOutput"),height="440px"),spin="folding-cube",color="green")),
+               tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center")),
              ),
              
              box(
                title = "Documentos por tipo", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,addSpinner(plotlyOutput(ns("tipoDocumentoPlotlyOutput"),height="500px"),spin="folding-cube",color="green")),
+               column(12,addSpinner(plotlyOutput(ns("tipoDocumentoPlotlyOutput"),height="485px"),spin="folding-cube",color="green")),
+               tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center"))
              ),
              
              box(
                title = "Documentos por ano de publicação", width = 6, solidHeader = TRUE, status = "primary",
                column(12,sliderInput(ns("anoPublicacaoSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="40%",sep="")),
-               column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput")),spin="folding-cube",color="green"))
+               column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="420px"),spin="folding-cube",color="green"))
              ),
              
              box(
@@ -39,35 +41,32 @@ mod_graficos_UI <- function(id,x) {
                column(12,numericInput(ns("subjectTopInput"),"Termos exibidos", 10, min = 1, max=25, width = "20%")),
                column(12,addSpinner(plotlyOutput(ns("subject_cnpqPlotlyOutput")),spin="folding-cube",color="green"))
              ),
-             
-
-             
 
              
              box(
                title = "Documentos por programa de pós-graduação - PPG", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("programTopInput"),"Termos exibidos", min=1,10,width="20%")),
+               column(12,numericInput(ns("programTopInput"),"Termos exibidos", min=1, max=30, 10, width="20%")),
                column(12,addSpinner(plotlyOutput(ns("programPlotlyOutput")),spin="folding-cube",color="green"))
              ),
              
              box(
                title = "Autores com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("authorTopInput"),"Termos exibidos", min=1,10,width="20%")),
-               column(12,addSpinner(plotlyOutput(ns("authorPlotOutput")),spin="folding-cube",color="green"))
+               column(12,numericInput(ns("authorTopInput"),"Termos exibidos", min=1, max=30, 10,width="20%")),
+               column(12,addSpinner(plotlyOutput(ns("authorPlotOutput"),height="437px"),spin="folding-cube",color="green"))
              ),
-             
 
              
              box(
                title = "Documentos por idioma", width = 6, solidHeader = TRUE, status = "primary",
                column(12,addSpinner(plotlyOutput(ns("idiomaPlotlyOutput"),height="475px"),spin="folding-cube",color="green")),
+               tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center"))
              ),
              
 
              
              box(
                title = "Pesquisadores com mais orientações", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos", min=1, 10,width="20%")),
+               column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos", min=1, max=30, 10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("pesquisadorPlotlyOutput")),spin="folding-cube",color="green")),
              )
              
