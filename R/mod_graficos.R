@@ -8,7 +8,7 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",10,width="20%")),
+               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1,10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput")),spin="folding-cube",color="green")),
              ),
              
@@ -30,13 +30,13 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Documentos por palavra-chave", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("wordCloudTopInput"),"Termos exibidos",30,width="20%")),
+               column(12,numericInput(ns("wordCloudTopInput"),"Termos exibidos", min=1, 30, width="20%")),
                column(12,addSpinner(wordcloud2Output(ns("palavraChavePlotOutput")),spin="folding-cube",color="green"))
              ),
              
              box(
                title = "Documentos por área do conhecimento do CNPq", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("subjectTopInput"),"Termos exibidos",10, width = "20%")),
+               column(12,numericInput(ns("subjectTopInput"),"Termos exibidos", 10, min = 1, max=25, width = "20%")),
                column(12,addSpinner(plotlyOutput(ns("subject_cnpqPlotlyOutput")),spin="folding-cube",color="green"))
              ),
              
@@ -46,13 +46,13 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Documentos por programa de pós-graduação - PPG", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("programTopInput"),"Termos exibidos",10,width="20%")),
+               column(12,numericInput(ns("programTopInput"),"Termos exibidos", min=1,10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("programPlotlyOutput")),spin="folding-cube",color="green"))
              ),
              
              box(
                title = "Autores com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("authorTopInput"),"Termos exibidos",10,width="20%")),
+               column(12,numericInput(ns("authorTopInput"),"Termos exibidos", min=1,10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("authorPlotOutput")),spin="folding-cube",color="green"))
              ),
              
@@ -67,7 +67,7 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Pesquisadores com mais orientações", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos",10,width="20%")),
+               column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos", min=1, 10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("pesquisadorPlotlyOutput")),spin="folding-cube",color="green")),
              )
              
