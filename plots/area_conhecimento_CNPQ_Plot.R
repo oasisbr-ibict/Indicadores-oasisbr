@@ -6,7 +6,14 @@ renderSubjectPlot <- function(x,y) {
 subject_cnpq <- x$facets$dc.subject.cnpq.fl_str_mv
 
 ## Validação para busca sem registros
-shiny::validate(need(is.null(subject_cnpq)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
+shiny::validate(need(is.null(x)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
+
+## Validação para informação vazia.
+shiny::validate(need(is.null(subject_cnpq)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+
+## Validação para informação vazia.
+shiny::validate(need((y>0), paste("O número de termo exibidos precisa estar entre 0 e 30.")))
+
 
 
 ## Ordena coluna 'count'
