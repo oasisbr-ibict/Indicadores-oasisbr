@@ -42,7 +42,7 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Documentos por palavra-chave", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("wordCloudTopInput"),"Termos exibidos", min=1, 30, width="20%")),
+               column(12,numericInput(ns("wordCloudTopInput"),"Termos exibidos", 30, min=1, max=30, width="20%")),
                column(12,addSpinner(wordcloud2Output(ns("palavraChavePlotOutput")),spin="folding-cube",color="green"))
              ),
              
