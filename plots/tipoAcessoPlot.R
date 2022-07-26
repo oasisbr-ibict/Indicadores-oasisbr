@@ -41,13 +41,10 @@ tipoAcessoPlotly <- tipoAcesso_facet %>%
           ),
           hoverinfo = "text"
           ) %>% 
-  add_pie(hole = 0.6) %>% layout(font=t)
+  add_pie(hole = 0.6) %>% layout(font=t) %>% config(displayModeBar = F) 
 
 return(tipoAcessoPlotly)
 
 }
-
-
-oasisbrDF <- fromJSON("data/oasisbr_indicadores_gerais_31-03-2022.json")
 
 

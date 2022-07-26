@@ -9,26 +9,36 @@ mod_graficos_UI <- function(id,x) {
              box(
                title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
                column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1,10,width="20%")),
-               column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput")),spin="folding-cube",color="green")),
+               column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput"),height="300px"),spin="folding-cube",color="green")),
+               height = "450px"
              ),
              
              box(
                title = "Documentos por tipo de acesso", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,addSpinner(plotlyOutput(ns("tipoAcessoPlotlyOutput"),height="440px"),spin="folding-cube",color="green")),
+               column(12,addSpinner(plotlyOutput(ns("tipoAcessoPlotlyOutput"),height="350px"),spin="folding-cube",color="green")),
                tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center")),
+               height = "450px"
              ),
              
              box(
                title = "Documentos por tipo", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,addSpinner(plotlyOutput(ns("tipoDocumentoPlotlyOutput"),height="485px"),spin="folding-cube",color="green")),
-               tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center"))
+               column(12,addSpinner(plotlyOutput(ns("tipoDocumentoPlotlyOutput"),height="350px"),spin="folding-cube",color="green")),
+               tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center")),
+               height = "450px"
              ),
              
              box(
                title = "Documentos por ano de publicação", width = 6, solidHeader = TRUE, status = "primary",
                column(12,sliderInput(ns("anoPublicacaoSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="40%",sep="")),
-               column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="420px"),spin="folding-cube",color="green"))
+               column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="290px"),spin="folding-cube",color="green")),
+               height = "450px"
              ),
+             
+             # box(
+             #   title = "Documentos por ano de publicação_facet", width = 6, solidHeader = TRUE, status = "primary",
+             #   column(12,sliderInput(ns("anoPublicacaoSliderInput_facet"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="40%",sep="")),
+             #   column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput_facet"),height="420px"),spin="folding-cube",color="green"))
+             # ),
              
              box(
                title = "Documentos por palavra-chave", width = 12, solidHeader = TRUE, status = "primary",
@@ -90,6 +100,9 @@ mod_graficos_server <- function(id, base) {
       output$subject_cnpqPlotlyOutput <- renderPlotly({ renderSubjectPlot(oasisbrBuscaUser(),input$subjectTopInput)})
       
       output$publishDatePlotlyOutput <- renderPlotly({renderAnoPublicacaoPlot(oasisbrBuscaUser(),input$anoPublicacaoSliderInput[1],input$anoPublicacaoSliderInput[2])})
+      
+    #  output$publishDatePlotlyOutput_facet <- renderPlotly({renderAnoPublicacaoPlot_facet(oasisbrBuscaUser(),input$anoPublicacaoSliderInput_facet[1],input$anoPublicacaoSliderInput_facet[2])})
+      
       
       output$programPlotlyOutput <- renderPlotly({renderProgramPlot(oasisbrBuscaUser(),input$programTopInput)})
       

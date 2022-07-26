@@ -26,7 +26,7 @@ render_pesquisadorPlot <- function(x,y) {
   ## Gráfico de top 10 Autore(a)s
   
   pesquisadorPlot <- ggplot(pesquisador_facet) +
-    aes(x = reorder(value, count), group = value, weight = count, 
+    aes(x = reorder(toupper(value), count), group = value, weight = count, 
         text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Pesquisador(a):</b>',
                    '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
                    "<br><br>",

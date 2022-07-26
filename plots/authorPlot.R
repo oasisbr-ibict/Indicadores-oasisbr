@@ -25,7 +25,7 @@ author_facet <- head(author_facet, n=y)
 ## Gráfico de top 10 Autore(a)s
 
 authorPlot <- ggplot(author_facet) +
-  aes(x = reorder(value, count), group = value, weight = count, 
+  aes(x = reorder(toupper(value), count), group = value, weight = count, 
       text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Autor(a):</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
                  "<br><br>",

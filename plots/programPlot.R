@@ -31,7 +31,7 @@ program <- head(program, n=y)
 ## Programa
 
 programPlot <- ggplot(program) +
-  aes(x = reorder(value, count), group = value, weight = count, 
+  aes(x = reorder(toupper(value), count), group = value, weight = count, 
       text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Programa de pós-graduação:</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
                  "<br><br>",

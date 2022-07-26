@@ -15,8 +15,8 @@ ui <- fluidPage(
   hr(),
   
   valueBox(
-    h3(textOutput("totalDocumentosOutput")), 
-    "Total de documentos", 
+    h3(textOutput("totalDocumentosOutput")),
+    "Total de documentos",
     icon = icon("database")
     ),
 
@@ -44,21 +44,10 @@ mod_graficos_UI("graficos")
 
 server <- function(input, output, session) {
   
-  
   ## Cria DF reativo com informações gerais
   oasisbrBuscaUser <<- reactive({
 
-    busca_oasisbr(lookfor = "")
-
-  if ( exists("oasisbrDF")==TRUE ) { print("Servidor funcionando.")
-
-  } else {
-
-
-    print("Usando DF local")
-    oasisbrDF <- fromJSON("oasisbr_indicadores_gerais_31-03-2022.json")
-
-  }
+    oasisbrDF <- busca_oasisbr(lookfor = "")
 
     return(oasisbrDF)
 

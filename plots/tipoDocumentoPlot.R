@@ -28,7 +28,7 @@ tipoDocumento_facet <- tipoDocumento_facet %>% mutate(pctTotal=count/x$resultCou
 
 ## Treemap Idiomas
 
-tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~valuePor, 
+tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~toupper(valuePor), 
                                texttemplate=paste('<b style="font-family: Lato !important; align=left; font-size:20px; font-weight:400;">',scales::comma(tipoDocumento_facet$count),'<br><b style="font-size:16px;">',tipoDocumento_facet$valuePor),
                                values = ~count, 
                                parents = ~NA, 
@@ -47,7 +47,7 @@ tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~valuePor,
                               )
 
 tipoDocumentoPlotly %>% 
-  layout(font=t)
+  layout(font=t) %>% config(displayModeBar = F) 
   
 
 }
