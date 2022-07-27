@@ -2,11 +2,19 @@ render_instituicoesPlot <- function(x,y) {
   
  #x <- oasisbrDF
   
+  ## Validação para busca sem registros
+  shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
+  
   instituicoes_facet <- x$facets$institution
   #author_facet
   
-  # Adicionar mensagem de erro caso não exista informação (verificar quantidade de registros diferente de zero)
-  shiny::validate(need(is.null(instituicoes_facet)==FALSE, 'A sua busca não corresponde a nenhum registro.'))
+  
+  ## Validação para informação vazia.
+  shiny::validate(need(is.null(instituicoes_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+  
+  
+  ## Validação para número de termos exibidos
+  shiny::validate(need((y>0 & y<=25), paste("O número de termo exibidos precisa estar entre 0 e 25.")))
   
   
   ## Ordena coluna 'count'

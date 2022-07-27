@@ -12,7 +12,7 @@
     
   .form-control:not(select) { font-family: Lato !important; }
     
-  .shiny-output-error-validation { color: green; font-size:20px; font-family: Lato !important; font-weight:600; }
+  .shiny-output-error-validation { color: gray; font-size:16px; font-family: Lato !important; font-weight:600; }
       
   .small-box>.inner { height:110px; }
       

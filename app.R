@@ -82,7 +82,7 @@ mod_graficos_server("graficos")
     
    # Criar função para definir objeto em texto
    # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
-    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',isolate(input$textoBuscaInput),'</span>".<br>Tempo de busca: ',substr(gsub("","",tempo_de_busca),1,5),' segundos.<hr>',sep="")) })
+    output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('<hr>','Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',isolate(input$textoBuscaInput),'</span>".<br>Tempo de busca: ',substr(gsub("","",tempo_de_busca),1,5),' segundos.<hr>',sep="")) })
       
     }) 
     

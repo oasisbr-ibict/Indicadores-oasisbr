@@ -8,7 +8,7 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1,10,width="20%")),
+               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1, max=25, 10,width="20%")),
                column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput"),height="300px"),spin="folding-cube",color="green")),
                height = "450px"
              ),
@@ -55,13 +55,13 @@ mod_graficos_UI <- function(id,x) {
              
              box(
                title = "Documentos por programa de pós-graduação - PPG", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("programTopInput"),"Termos exibidos", min=1, max=30, 10, width="20%")),
+               column(12,numericInput(ns("programTopInput"),"Termos exibidos", min = 1, max = 25, 10, width="20%")),
                column(12,addSpinner(plotlyOutput(ns("programPlotlyOutput")),spin="folding-cube",color="green"))
              ),
              
              box(
                title = "Autores com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("authorTopInput"),"Termos exibidos", min=1, max=30, 10,width="20%")),
+               column(12,numericInput(ns("authorTopInput"),"Termos exibidos", min = 1, max = 30, 10, width="20%")),
                column(12,addSpinner(plotlyOutput(ns("authorPlotOutput"),height="437px"),spin="folding-cube",color="green"))
              ),
 

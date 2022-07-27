@@ -1,18 +1,19 @@
 renderSubjectPlot <- function(x,y) {
 
+## Validação para busca sem registros
+shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
+  
+  
 ## Área de conhecimento do CNPQ (dc.subject.cnpq.fl_str_mv)
 ### Cria subconjunto
-#x <- busca_oasisbr(lookfor="")
 subject_cnpq <- x$facets$dc.subject.cnpq.fl_str_mv
 
-## Validação para busca sem registros
-shiny::validate(need(is.null(x)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
 
 ## Validação para informação vazia.
 shiny::validate(need(is.null(subject_cnpq)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
 
 ## Validação para informação vazia.
-shiny::validate(need((y>0), paste("O número de termo exibidos precisa estar entre 0 e 30.")))
+shiny::validate(need((y>0 & y<=25), paste("O número de termo exibidos precisa estar entre 0 e 25.")))
 
 
 

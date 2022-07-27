@@ -1,11 +1,17 @@
 renderAuthorPlot <- function(x,y) {
 
+## Validação para busca sem registros
+shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
 
 author_facet <- x$facets$author_facet
 #author_facet
 
-# Adicionar mensagem de erro caso não exista informação (verificar quantidade de registros diferente de zero)
-shiny::validate(need(is.null(author_facet)==FALSE, 'A sua busca não corresponde a nenhum registro.'))
+
+## Validação para informação vazia.
+shiny::validate(need(is.null(author_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+
+## Validação para informação vazia.
+shiny::validate(need((y>0 & y<=30), paste("O número de termo exibidos precisa estar entre 0 e 30.")))
 
 
 ## Ordena coluna 'count'

@@ -1,5 +1,9 @@
 renderProgramPlot <- function(x,y) {
 
+
+## Validação para busca sem registros
+shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))
+  
 #######################
 ## Documentos por programa de pós-graduação - PPG (top 10)
 ### Cria subconjunto
@@ -7,7 +11,15 @@ renderProgramPlot <- function(x,y) {
 program <- x$facets$dc.publisher.program.fl_str_mv
 #View(program)
 
-shiny::validate(need(is.null(program)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
+
+
+## Validação para informação vazia.
+shiny::validate(need(is.null(program)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+
+
+## Validação para limite de termos exibidos
+shiny::validate(need((y>0 & y<=25), paste("O número de termo exibidos precisa estar entre 0 e 25.")))
+
 
 
 ## Retira registro 'sem informação' da coluna 'value'

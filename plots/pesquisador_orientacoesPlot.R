@@ -1,12 +1,18 @@
 render_pesquisadorPlot <- function(x,y) {
   
- #x <- oasisbrDF
+  ## Validação para busca sem registros
+  shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
   
+  ## Pesquisador com mais orientacoes (dc.contributor.advisor1.fl_str_mv)
+  ### Cria subconjunto
   pesquisador_facet <- x$facets$dc.contributor.advisor1.fl_str_mv
-  #author_facet
+
   
-  # Adicionar mensagem de erro caso não exista informação (verificar quantidade de registros diferente de zero)
-  shiny::validate(need(is.null(pesquisador_facet)==FALSE, 'A sua busca não corresponde a nenhum registro.'))
+  ## Validação para informação vazia.
+  shiny::validate(need(is.null(pesquisador_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+  
+  ## Validação para informação vazia.
+  shiny::validate(need((y>0 & y<=30), paste("O número de termo exibidos precisa estar entre 0 e 30.")))
   
   
   ## Ordena coluna 'count'

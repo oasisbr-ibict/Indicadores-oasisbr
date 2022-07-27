@@ -1,4 +1,10 @@
 renderAnoPublicacaoPlot <- function(x,y,z) {
+  
+  
+  
+## Validação para busca sem registros
+shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
+
 #######################
 ## Documentos por ano de publicação (publishDate)
 #x <- oasisbrDF
@@ -7,7 +13,8 @@ publishDate <- x$facets$publishDate
 #View(publishDate)
 
 
-shiny::validate(need(is.null(publishDate)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
+## Validação para informação vazia.
+shiny::validate(need(is.null(publishDate)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
 
 
 ## Ordena coluna 'value' (Ano de publicação)
