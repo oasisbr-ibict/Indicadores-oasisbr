@@ -5,7 +5,6 @@ View(ano_de_publicacao)
 
 x <- ano_de_publicacao$facet_counts$facet_fields$publishDate
 
-
 # Manipulações
 x <- x %>% matrix(ncol=2, byrow=TRUE) %>% data.frame() %>% 
   rename(publishDate=X1,count=X2) %>% mutate(count=as.numeric(as.character(count)), publishDate=ISOdate(publishDate, 1, 1))

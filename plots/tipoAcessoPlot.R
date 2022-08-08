@@ -41,7 +41,7 @@ tipoAcessoPlotly <- tipoAcesso_facet %>%
           ),
           hoverinfo = "text"
           ) %>% 
-  add_pie(hole = 0.6) %>% layout(font=t) %>% config(displayModeBar = F) 
+  add_pie(hole = 0.6) %>% layout(font=t, legend = list(font = list(size = 14), orientation = 'h')) %>% config(displayModeBar = F) 
 
 return(tipoAcessoPlotly)
 

@@ -31,3 +31,9 @@
   .form-control:not(select) { font-family: Lato !important; font-weight:600;  }
   
   .shiny-bound-output { font-family: Lato !important; font-weight:600; }
+  
+  .box.box-solid.box-primary>.box-header { background-color:#76B865; }
+  
+  .box.box-solid.box-primary { border: 1px solid gray; }
+  
+  .small-box>.inner { color: black; background-color:white; }
