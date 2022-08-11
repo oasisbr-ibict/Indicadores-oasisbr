@@ -26,8 +26,6 @@ author_facet <- author_facet %>% mutate(pctTotal=count/x$resultCount)
 ## Seleciona top 10
 author_facet <- head(author_facet, n=y)
 
-#esquisser(author_facet)
-
 ## Gráfico de top 10 Autore(a)s
 
 authorPlot <- ggplot(author_facet) +
@@ -43,7 +41,7 @@ authorPlot <- ggplot(author_facet) +
       )
       #text=paste("Autor(a):",value,"<br>","Quantidade",comma(count))
       ) +
-  geom_bar(fill = "#112446") +
+  geom_bar(fill = "#76B865") +
   
   scale_y_continuous(labels = scales::comma)+
   labs(x = "<b style='color:gray'>Autor(a)</b><br><br><b style='color:white'>.", 

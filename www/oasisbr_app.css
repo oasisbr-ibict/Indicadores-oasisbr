@@ -37,3 +37,7 @@
   .box.box-solid.box-primary { border: 1px solid gray; }
   
   .small-box>.inner { color: black; background-color:white; }
+  
+  .irs--shiny .irs-bar { border-top: 1px solid #428bca;  border-bottom: 1px solid #428bca; background: #76B865; }
+  
+  .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single { background-color: #76B865; }

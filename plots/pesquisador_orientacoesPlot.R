@@ -44,7 +44,7 @@ render_pesquisadorPlot <- function(x,y) {
         )
         #text=paste("Autor(a):",value,"<br>","Quantidade",comma(count))
     ) +
-    geom_bar(fill = "#112446") +
+    geom_bar(fill = "#76B865") +
     
     scale_y_continuous(labels = scales::comma)+
     labs(x = "<b style='color:gray'>Pesquisador(a)</b><br><br><b style='color:white'>.", 

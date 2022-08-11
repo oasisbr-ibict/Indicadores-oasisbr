@@ -2,7 +2,8 @@ wordCloudPlot <- function(x,y) {
   
 ## Validação para busca sem registros
 shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
-  
+
+#x <- busca_oasisbr(lookfor="")
   
 ######################
 ## Palavra-chave ()
@@ -24,7 +25,10 @@ shiny::validate(need((y>=5 & y<=30), paste("O número de termo exibidos precisa 
 palavraChave <- select(palavraChave, value, count)
 palavraChave <- rename(palavraChave, word=value, freq=count)
 
-palavraChavePlot <- wordcloud2a(head(palavraChave, n=y))
+palavraChavePlot <- wordcloud2a(head(palavraChave, n=y), fontFamily = "Lato", size = .8, color=rep_len( c("#F8C300","#76B865", "#EA6A47"), nrow(palavraChave) ))
+#palavraChavePlot <- wordcloud2a(palavraChave, color=rep_len( c("#F8C300","#76B865", "#EA6A47"), nrow(palavraChave) ))
+#palavraChavePlot
+
 
 return(palavraChavePlot)
 

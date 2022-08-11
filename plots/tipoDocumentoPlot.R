@@ -1,9 +1,8 @@
 renderTipoDocumentoPlot <- function(x) {
 
-#############################
 ## Tipo de documento
 ### Cria subconjunto
-#x <- busca_oasisbr(lookfor="")
+#x <- busca_oasisbr(lookfor="varíola do macaco")
 tipoDocumento_facet <- x$facets$format
 
 
@@ -26,9 +25,13 @@ tipoDocumento_facet <- tipoDocumento_facet[tipoDocumento_facet$translated!='sem 
 ## Adiciona % do total
 tipoDocumento_facet <- tipoDocumento_facet %>% mutate(pctTotal=count/x$resultCount)
 
+## Cria vetor com cores
+colors <- c("#F8C300","#76B865", "#EA6A47")
+
 ## Treemap Idiomas
 
 tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~toupper(valuePor), 
+                               marker = list(colors = colors),
                                texttemplate=paste('<b style="font-family: Lato !important; align=left; font-size:20px; font-weight:400;">',scales::comma(tipoDocumento_facet$count),'<br><b style="font-size:16px;">',tipoDocumento_facet$valuePor),
                                values = ~count, 
                                parents = ~NA, 
@@ -47,7 +50,7 @@ tipoDocumentoPlotly <- plot_ly(tipoDocumento_facet, labels = ~toupper(valuePor),
                               )
 
 tipoDocumentoPlotly %>% 
-  layout(font=t) %>% config(displayModeBar = F) 
+  layout(font=t, xaxis=list(tickvals=~count)) %>% config(displayModeBar = F) 
   
 
 }

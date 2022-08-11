@@ -84,7 +84,7 @@ subject_cnpqPlot <- ggplot(subject_cnpq) +
                  '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
                  )) +
-  geom_bar(fill = "#112446") +
+  geom_bar(fill = "#76B865") +
   scale_y_continuous(labels = scales::comma)+
   labs(x = "<b style='color:gray'>Área do conhecimento CNPQ</b><br><br><b style='color:white'>.", 
        y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +

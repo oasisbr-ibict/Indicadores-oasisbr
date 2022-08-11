@@ -1,5 +1,7 @@
 renderIdiomaPlot <- function(x) {
 
+#x <- busca_oasisbr(lookfor="")  
+  
 ############################
 ## Idioma
 ## REPORTAR ERROS DE ESCRITA NESSE DF (EX 'PORTUGES')
@@ -19,11 +21,14 @@ idioma_facet <- idioma_facet %>% mutate(pctTotal=count/x$resultCount)
 ## Retira registro 'sem informação' da coluna 'value'
 idioma_facet <- idioma_facet[idioma_facet$translated!='sem informação',]
 
+## Cria vetor com cores
+colors <- c("#F8C300","#76B865", "#EA6A47")
 
 ## Treemap Idiomas
 
 idiomaPlotly <- plot_ly(idioma_facet, labels = ~translated, 
                         values = ~count, 
+                        marker = list(colors = colors),
                         hoverinfo = "text",
                         hovertext = paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400;">Idioma:</b>',
                                           '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',idioma_facet$translated,"</b>",

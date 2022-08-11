@@ -9,7 +9,7 @@ ui <- fluidPage(
   
   fluidRow(
     column(offset = 1, 10,
-  img(src='oasisbr.png', style = "position:float;", width = "300px"),
+ # img(src='oasisbr.png', style = "position:float;", width = "300px"),
   column(12,h1("Indicadores gerais")),
   hr(),
   hr(),

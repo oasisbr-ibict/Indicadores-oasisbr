@@ -1,6 +1,6 @@
 render_instituicoesPlot <- function(x,y) {
   
- #x <- oasisbrDF
+  # x <- busca_oasisbr(lookfor="")
   
   ## Validação para busca sem registros
   shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
@@ -29,6 +29,8 @@ render_instituicoesPlot <- function(x,y) {
   ## Seleciona top 10
   instituicoes_facet <- head(instituicoes_facet, n=y)
   
+  instituicoes_facet$color <- "#76B865"
+  
   #esquisser(author_facet)
   
   ## Gráfico de top 10 Autore(a)s
@@ -46,7 +48,7 @@ render_instituicoesPlot <- function(x,y) {
         )
         #text=paste("Autor(a):",value,"<br>","Quantidade",comma(count))
     ) +
-    geom_bar(fill = "#112446") +
+    geom_bar(fill = "#76B865") +
     
     scale_y_continuous(labels = scales::comma)+
     labs(x = "<b style='color:gray'>Instituição</b><br><br><b style='color:white'>.", 
