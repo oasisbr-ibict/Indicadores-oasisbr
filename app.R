@@ -8,7 +8,7 @@ ui <- fluidPage(
   includeCSS("www/oasisbr_app.css"), br(),
   
   fluidRow(
-    column(offset = 1, 10,
+  #  column(offset = 1, 10,
  # img(src='oasisbr.png', style = "position:float;", width = "300px"),
   column(12,h1("Indicadores gerais")),
   hr(),
@@ -20,10 +20,11 @@ ui <- fluidPage(
     icon = icon("database")
     ),
 
-  hr()),
+  hr(),
+ #),
 
 
-column(offset = 1, 10,
+#column(offset = 1, 10,
        column(12,
          fluidRow(
            column(6,textInput("textoBuscaInput", label=NULL, placeholder = "Filtre os documentos pelos indicadores abaixo",width = "100%")),
@@ -33,7 +34,7 @@ column(offset = 1, 10,
    
   column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
-  ),
+ # ),
 #mod_texto_resultado_da_busca_UI("texto_resultado_da_busca")
 ),
 

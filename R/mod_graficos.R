@@ -4,7 +4,7 @@ mod_graficos_UI <- function(id,x) {
 
   tagList(
     fluidRow(
-      column(offset = 1, 10,
+     # column(offset = 1, 10,
              
              box(
                title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
@@ -82,7 +82,7 @@ mod_graficos_UI <- function(id,x) {
              
 
              
-      )
+    #  )
     )
   )
 }
