@@ -7,24 +7,15 @@ ui <- fluidPage(
   useShinydashboard(),
   includeCSS("www/oasisbr_app.css"), br(),
   
+  tabsetPanel(type = "tabs",
+              tabPanel("Indicadores gerais", 
   fluidRow(
-  #  column(offset = 1, 10,
- # img(src='oasisbr.png', style = "position:float;", width = "300px"),
+
   column(12,h1("Indicadores gerais")),
-  hr(),
-  hr(),
   
-  valueBox(
-    h3(textOutput("totalDocumentosOutput")),
-    "Total de documentos",
-    icon = icon("database")
-    ),
+  column(12,
+  mod_total_de_documentos_UI("total_de_documentos"),hr()),
 
-  hr(),
- #),
-
-
-#column(offset = 1, 10,
        column(12,
          fluidRow(
            column(6,textInput("textoBuscaInput", label=NULL, placeholder = "Filtre os documentos pelos indicadores abaixo",width = "100%")),
@@ -34,14 +25,24 @@ ui <- fluidPage(
    
   column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
- # ),
-#mod_texto_resultado_da_busca_UI("texto_resultado_da_busca")
 ),
 
 #====== MODULO GRAFICOS UI
 mod_graficos_UI("graficos")
 #======
-)
+),
+
+#====== ABA === INDICADORES DE EVOLUÇÃO ===
+tabPanel("Indicadores de evolução",
+         
+         fluidRow(
+         column(12,h1("Indicadores de evolução")),
+         column(12,mod_total_de_documentos_UI("total_de_documentos2"),
+                   mod_graficos_evolucao_UI("graficos_evolucao")))
+
+         
+         )
+))
 
 server <- function(input, output, session) {
   
@@ -55,12 +56,19 @@ server <- function(input, output, session) {
   })
   
   
+
+#====== MODULO TOTAL DE DOCUMENTOS SERVER
+mod_total_de_documentos_Server("total_de_documentos")  
+
+mod_total_de_documentos_Server("total_de_documentos2")  
+
 #====== MODULO GRAFICOS SERVER
 mod_graficos_server("graficos")
-#======
-  
-  output$totalDocumentosOutput <- renderText({ scales::comma(total_de_documentos) })
-  
+
+#====== MODULO GRAFICOS DE EVOLUCAO SERVER
+mod_graficos_evolucao_Server("graficos_evolucao")
+
+
   
   ## Cria DF reativo para a busca do usuário e atualiza outputs
   
@@ -80,6 +88,8 @@ mod_graficos_server("graficos")
     })
     
     mod_graficos_server("graficos")
+    
+    mod_graficos_evolucao_Server("graficos_evolucao")
     
    # Criar função para definir objeto em texto
    # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
