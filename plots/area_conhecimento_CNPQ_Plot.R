@@ -80,9 +80,9 @@ subject_cnpqPlot <- ggplot(subject_cnpq) +
                  "<br><br>",
                  '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
                  '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(total),"</b>",
-                 "<br><br>",
-                 '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
-                 '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
+                 "<br><br>"
+                # '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray"">% do total:</b>',
+                # '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',scales::percent(pctTotal),"</b>"
                  )) +
   geom_bar(fill = "#76B865") +
   scale_y_continuous(labels = scales::comma)+
