@@ -29,6 +29,11 @@ library(scales)
 library(stringr)
 library(tictoc)
 
+# Importa funcões
+source("functions/fonteGraficosPlotly.R",encoding="UTF-8")
+source("functions/total_de_documentos.R",encoding="UTF-8")
+source("functions/busca_oasisbr.R",encoding="UTF-8")
+
 
 # Importa funções de gráficos
 source("plots/area_conhecimento_CNPQ_Plot.R", encoding="UTF-8")
@@ -45,7 +50,4 @@ source("plots/instituicoes_Plot.R", encoding="UTF-8")
 source("plots/indicadoresEvolution.R", encoding="UTF-8")
 
 
-# Importa funcões
-source("functions/fonteGraficosPlotly.R",encoding="UTF-8")
-source("functions/total_de_documentos.R",encoding="UTF-8")
-source("functions/busca_oasisbr.R",encoding="UTF-8")
+
