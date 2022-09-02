@@ -44,9 +44,9 @@ tipoAcessoPlotly <- tipoAcesso_facet %>%
                             "<br><br>",
                             '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; ">Total de documentos:</b>',
                             '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',scales::comma(tipoAcesso_facet$count),"</b>",
-                            "<br><br>",
-                            '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; "">% do total:</b>',
-                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',scales::percent(tipoAcesso_facet$pctTotal),"</b>"
+                            "<br><br>"#,
+                            #'<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; "">% do total:</b>',
+                            #'<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 ">',scales::percent(tipoAcesso_facet$pctTotal),"</b>"
           ),
           hoverinfo = "text"
           ) %>% 
