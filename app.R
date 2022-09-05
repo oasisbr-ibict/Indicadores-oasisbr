@@ -1,3 +1,4 @@
+Sys.setlocale("LC_ALL","C.UTF-8")
 source("loadPackages.R", encoding="UTF-8")
 
 library(shiny)
