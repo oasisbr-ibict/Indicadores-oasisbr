@@ -48,6 +48,7 @@ source("plots/wordcloud2_bugfix.R", encoding="UTF-8")
 source("plots/pesquisador_orientacoesPlot.R", encoding="UTF-8")
 source("plots/instituicoes_Plot.R", encoding="UTF-8")
 source("plots/indicadoresEvolution.R", encoding="UTF-8")
+source("plots/heatmap_Plot.R")
 
 
 

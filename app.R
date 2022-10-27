@@ -42,7 +42,20 @@ tabPanel("Indicadores de evolução",
                    mod_graficos_evolucao_UI("graficos_evolucao")))
 
          
-         )
+         ),
+
+#====== ABA === Análises avançadas ===
+tabPanel("Análises avançadas",
+         
+         fluidRow(
+           column(12,h1("Análises avançadas")),
+           mod_analises_avancadas_UI("analises_avancadas")
+           
+)
+         
+         
+)
+
 ))
 
 server <- function(input, output, session) {
@@ -56,7 +69,14 @@ server <- function(input, output, session) {
 
   })
   
-  
+  ## Cria DF reativo com heatmap - analise avancada
+  oasisbrBuscaUser_heatmap <<- reactive({
+    
+    oasisbrDF_heatmap <- busca_oasisbr_heatmap()
+    
+    return(oasisbrDF_heatmap)
+    
+  })
 
 #====== MODULO TOTAL DE DOCUMENTOS SERVER
 mod_total_de_documentos_Server("total_de_documentos")  
@@ -69,6 +89,8 @@ mod_graficos_server("graficos")
 #====== MODULO GRAFICOS DE EVOLUCAO SERVER
 mod_graficos_evolucao_Server("graficos_evolucao")
 
+#====== MODULO ANALISES AVANCADAS
+mod_analises_avancadas_Server("analises_avancadas")
 
   
   ## Cria DF reativo para a busca do usuário e atualiza outputs
@@ -88,9 +110,20 @@ mod_graficos_evolucao_Server("graficos_evolucao")
       
     })
     
+    ## Cria DF reativo com heatmap - analise avancada
+    oasisbrBuscaUser_heatmap <<- reactive({
+      
+      oasisbrDF_heatmap <- busca_oasisbr_heatmap(q=isolate(input$textoBuscaInput))
+      
+      return(oasisbrDF_heatmap)
+      
+    })
+    
     mod_graficos_server("graficos")
     
     mod_graficos_evolucao_Server("graficos_evolucao")
+    
+    mod_analises_avancadas_Server("analises_avancadas")
     
    # Criar função para definir objeto em texto
    # mod_texto_resultado_da_busca_server("texto_resultado_da_busca")
