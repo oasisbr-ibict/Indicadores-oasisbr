@@ -1,13 +1,15 @@
-render_instituicoesPlot <- function(x,y) {
+# network_name_str
+
+render_titulo_fonte_Plot <- function(x,y) {
   
   ## Validação para busca sem registros
   shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
   
-  #x <- busca_oasisbr(lookfor="")
-  instituicoes_facet <- x$facets$institution
+  titulo_fonte_facet <- x$facets$network_name_str
+  #author_facet
   
   ## Validação para informação vazia.
-  shiny::validate(need(is.null(instituicoes_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+  shiny::validate(need(is.null(titulo_fonte_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
   
   
   ## Validação para número de termos exibidos
@@ -15,31 +17,28 @@ render_instituicoesPlot <- function(x,y) {
   
   
   ## Ordena coluna 'count'
-  instituicoes_facet <- instituicoes_facet[with(instituicoes_facet, order(-count)),]
+  titulo_fonte_facet <- titulo_fonte_facet[with(titulo_fonte_facet, order(-count)),]
   
   ## Retira registro 'sem informação' da coluna 'value'
-  instituicoes_facet <- instituicoes_facet[instituicoes_facet$value!='sem informação',]
+  titulo_fonte_facet <- titulo_fonte_facet[titulo_fonte_facet$value!='sem informação',]
   
   ## Adiciona % do total
-  instituicoes_facet <- instituicoes_facet %>% mutate(pctTotal=count/x$resultCount)
+  titulo_fonte_facet <- titulo_fonte_facet %>% mutate(pctTotal=count/x$resultCount)
   
   ## Seleciona top 10
-  instituicoes_facet <- head(instituicoes_facet, n=y)
+  titulo_fonte_facet <- head(titulo_fonte_facet, n=y)
   
-  instituicoes_facet$color <- "#76B865"
+  titulo_fonte_facet$color <- "#76B865"
   
-  # Remove string '?' de coluna de 'href', com hyperlink
-  instituicoes_facet$href <- sub("?","",instituicoes_facet$href,fixed=TRUE)
   
-
-  # IMPORTANTE/BUG: Ordena coluna com link de referência para documentos dentro do grafo plotly
-  instituicoes_facet <- instituicoes_facet[order(instituicoes_facet$href),]
+  titulo_fonte_facet$url <- "http://google.com"
+  
   
   ## Gráfico de top 10 Autore(a)s
   
-  instituicoesPlot <- ggplot(instituicoes_facet) +
+  titulo_fonte_Plot <- ggplot(titulo_fonte_facet) +
     aes(x = reorder(value, count), group = value, weight = count, 
-        text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Instituição:</b>',
+        text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Título da fonte:</b>',
                    '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
                    "<br><br>",
                    '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
@@ -56,23 +55,21 @@ render_instituicoesPlot <- function(x,y) {
     theme(axis.title.x = element_text(size = 14L)) +
     coord_flip()
   
-  instituicoesPlot <- ggplotly(instituicoesPlot, tooltip="text",customdata = "href", source="teste")
+  titulo_fonte_Plot <- ggplotly(titulo_fonte_Plot, tooltip="text")
   
-  instituicoesPlot <- instituicoesPlot %>%
+  titulo_fonte_Plot <- titulo_fonte_Plot %>%
     
     layout(font=t, 
            margin = list(l=50,b = 55),
            hoverlabel=list(bgcolor="white")
     ) %>% config(displayModeBar = F) 
   
-
+  # Add URL data to plot
+  titulo_fonte_Plot$x$data[[1]]$customdata <- titulo_fonte_facet$url
   
-  # Adiciona a url dos documentos ao gráfico
-  instituicoesPlot$x$data[[1]]$customdata <- paste("https://oasisbr.ibict.br/vufind/Search/Results?lookfor=",texto_reactive(),"&",instituicoes_facet$href,sep="")
-  
-  # Funcção em JS para abrir uma aba quando houver clique numa barra específica
+  # JS function to make a tab open when clicking on a specific bar
   onRender(
-    instituicoesPlot,
+    titulo_fonte_Plot,
     "
     function(el,x){
     el.on('plotly_click', function(d) {

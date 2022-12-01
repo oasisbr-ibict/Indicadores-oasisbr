@@ -1,10 +1,35 @@
-library(jsonlite)
-library(plotly)
-library(scales)
+
+oasisbrEvolucao <- tryCatch(
+  {
+    oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators")
+    return(oasisbrEvolucao)
+    print("========================")
+    print("Indicadores de evolução:")
+    print("STATUS: ONLINE")
+    print("========================")
+  },
+  error = function(e){
+    
+    oasisbrEvolucao <- fromJSON("data/indicadores_de_evolucao.json")
+    return(oasisbrEvolucao)
+    
+    print("========================")
+    print("Indicadores de evolução:")
+    print("STATUS: ERRO!")
+    print("========================")
+    
+  }
+)
+
+
+#print("Resultado do trycatch")
+#print(head(oasisbrEvolucao))
+
+shiny::validate(need(is.null(oasisbrEvolucao)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
 
 ## Importa dados da API
-oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators")
-
+#oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators")
+#shiny::validate(need(is.null(oasisbrEvolucao)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
 
 
 ## Cria novo dataframe com 'content'

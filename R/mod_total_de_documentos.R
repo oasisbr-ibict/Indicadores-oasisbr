@@ -4,7 +4,7 @@ mod_total_de_documentos_UI <- function(id) {
     
   fluidRow(
     valueBox(
-    h3(textOutput(ns("totalDocumentosOutput"))),
+    h4(textOutput(ns("totalDocumentosOutput"))),
     "Total de documentos", icon = icon("database")))
   
   )

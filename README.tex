@@ -1,0 +1,767 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\author{}
+\date{\vspace{-2.5em}}
+
+\begin{document}
+
+\hypertarget{section}{%
+\section{}\label{section}}
+
+\hypertarget{indicadores-oasisbr}{%
+\subsection{Indicadores oasisbr}\label{indicadores-oasisbr}}
+
+\hypertarget{documentauxe7uxe3o-r-shiny-app}{%
+\subsubsection{Documentação R-Shiny
+app}\label{documentauxe7uxe3o-r-shiny-app}}
+
+\hypertarget{indicadores-oasisbr---documentauxe7uxe3o-r-shiny-app}{%
+\subsection{Indicadores oasisbr - Documentação R-Shiny
+App}\label{indicadores-oasisbr---documentauxe7uxe3o-r-shiny-app}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Acesso à API e download de arquivo com indicadores
+\item
+  Análise exploratória dos dados
+\item
+  Instalação de servidores RStudio e RShiny
+\item
+  Aplicação R-Shiny
+\end{enumerate}
+
+\hypertarget{download-de-arquivos-com-informauxe7uxf5es-sobre-os-indicadores}{%
+\subsection{Download de arquivos com informações sobre os
+indicadores}\label{download-de-arquivos-com-informauxe7uxf5es-sobre-os-indicadores}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Os indicadores da oasisbr são disponibilizados via api.
+\end{enumerate}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{oasisbrAPILink }\OtherTok{\textless{}{-}} \StringTok{"https://oasisbr.ibict.br/vufind/api/v1/search?\&type=AllFields\&page=0\&limit=0\&sort=relevance\&facet[]=author\_facet\&facet[]=dc.subject.por.fl\_str\_mv\&facet[]=eu\_rights\_str\_mv\&facet[]=dc.publisher.program.fl\_str\_mv\&facet[]=dc.subject.cnpq.fl\_str\_mv\&facet[]=publishDate\&facet[]=language\&facet[]=format\&facet[]=institution\&facet[]=dc.contributor.advisor1.fl\_str\_mv"}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{indicadores-de-evoluuxe7uxe3o}{%
+\subsection{Indicadores de
+evolução:}\label{indicadores-de-evoluuxe7uxe3o}}
+
+\url{https://api-oasisbr.ibict.br/api/v1/evolution-indicators?init=10/10/2017\&end=10/10/2021}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{documentauxe7uxe3o-indicadores-de-evoluuxe7uxe3o}{%
+\subsection{Documentação indicadores de
+evolução:}\label{documentauxe7uxe3o-indicadores-de-evoluuxe7uxe3o}}
+
+\url{https://api-oasisbr.ibict.br/api/v1/doc/\#/default/EvolutionIndicatorsController_find}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Mais informações sobre a api:\\
+\url{https://oasisbr.ibict.br/vufind/api/v1/}\strut \\
+Mais informações sobre \texttt{facets}:\\
+\href{\%60https://solr.apache.org/guide/6_6/faceting.html\%60}{Apache
+Solr Reference Guide 6.6 - Faceting}
+
+É feito o download do arquivo em formato \texttt{JSON} via pacote
+\texttt{jsolinte}, utilizando-se a função \texttt{fromJSON}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(jsonlite)}
+\NormalTok{oasisbrDF }\OtherTok{\textless{}{-}} \FunctionTok{fromJSON}\NormalTok{(oasisbrAPILink)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+O arquivo possui a seguinte estrutura:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(oasisbrDF)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "resultCount" "facets"      "status"
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Dentro da lista \texttt{resultCount}, encontra-se \textbf{quantidade de
+documentos} recuperados:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{oasisbrDF}\SpecialCharTok{$}\NormalTok{resultCount}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 3010384
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Dentro da lista \texttt{facets}, encontram-se \textbf{dez listas para
+dez variáveis diferentes}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{names}\NormalTok{(oasisbrDF}\SpecialCharTok{$}\NormalTok{facets)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##  [1] "author_facet"                      "dc.subject.por.fl_str_mv"         
+##  [3] "eu_rights_str_mv"                  "dc.publisher.program.fl_str_mv"   
+##  [5] "dc.subject.cnpq.fl_str_mv"         "publishDate"                      
+##  [7] "language"                          "format"                           
+##  [9] "institution"                       "dc.contributor.advisor1.fl_str_mv"
+\end{verbatim}
+
+As informações sobre as variáveis se encontram no documento
+\texttt{Padrão\ de\ Metadados\ da\ BDTD\ -\ MTD3-BR\ v.2017.pdf}
+
+Todas as listas possuem \textbf{4 colunas}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\#Exemplo: author\_facet}
+\FunctionTok{names}\NormalTok{(oasisbrDF}\SpecialCharTok{$}\NormalTok{facets}\SpecialCharTok{$}\NormalTok{author\_facet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "value"      "translated" "count"      "href"
+\end{verbatim}
+
+A coluna \texttt{value} representa o valor, \texttt{translated} o valor
+traduzido, \texttt{count} a frequência e \texttt{href} o hyperlink.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(oasisbrDF}\SpecialCharTok{$}\NormalTok{facets}\SpecialCharTok{$}\NormalTok{author\_facet)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                     value              translated count
+## 1 Ferreira, Isabel C.F.R. Ferreira, Isabel C.F.R.  1986
+## 2             Reis, R. L.             Reis, R. L.  1560
+## 3               Adams, T.               Adams, T.  1497
+## 4         Sirunyan, A. M.         Sirunyan, A. M.  1450
+## 5         Barros, Lillian         Barros, Lillian  1448
+## 6            Banerjee, S.            Banerjee, S.  1432
+##                                                                                  href
+## 1 ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Ferreira%2C+Isabel+C.F.R.%22
+## 2             ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Reis%2C+R.+L.%22
+## 3               ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Adams%2C+T.%22
+## 4         ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Sirunyan%2C+A.+M.%22
+## 5         ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Barros%2C+Lillian%22
+## 6            ?limit=0&type=AllFields&filter%5B%5D=author_facet%3A%22Banerjee%2C+S.%22
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+Dentro da lista \texttt{status}, é exiba uma mensagem sobre o
+\textbf{status} do \texttt{JSON}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{oasisbrDF}\SpecialCharTok{$}\NormalTok{status}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] "OK"
+\end{verbatim}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{r-shiny-app}{%
+\subsection{R-Shiny app}\label{r-shiny-app}}
+
+O aplicativo desenvolvido tem o intuito de disponibilizar a visualização
+dos indicadores, de maneira interativa. Os scripts estão armazenados no
+arquivo \texttt{app.R}. Após finalizado, é necessário disponibilizar a
+aplicação.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{configurando-o-servidor}{%
+\subsection{Configurando o servidor}\label{configurando-o-servidor}}
+
+Algumas etapas são necessárias para configurar o servidor.
+
+\hypertarget{instalar-o-r}{%
+\subsubsection{Instalar o R}\label{instalar-o-r}}
+
+Antes de instalar o servidor Shiny, precisamos instalar o R.
+
+\texttt{sudo\ apt-get\ install\ r-base}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instalar-o-rstudio-server}{%
+\subsubsection{Instalar o
+RStudio-server}\label{instalar-o-rstudio-server}}
+
+A instalação de um servidor Rstudio também é importante para
+verificações dos scripts dentro do próprio servidor
+\texttt{sudo\ gdebi\ rstudio-server-2021.09.1-372-amd64.deb}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instalar-o-r-shiny-server}{%
+\subsubsection{Instalar o R-Shiny
+server}\label{instalar-o-r-shiny-server}}
+
+A instalação do Shiny-server é feita com a ferramenta \texttt{GDebi}.
+Para sua instalação, basta usar o seguinte comando:
+
+\texttt{sudo\ apt-get\ install\ gdebi-core}
+
+Para fazer o download do Shiny-server, basta usar o seguinte comando
+(lembrar de buscar por versão mais atualizada):
+
+\texttt{Wget\ https://download3.rstudio.org/ubuntu-12.04/x86\_64/shiny-server-1.4.2.786-amd64.deb}
+
+Agora, basta usar o \texttt{GDebi} para instalar o arquivo que foi
+baixado, utilizando o seguinte comando:
+
+\texttt{sudo\ gdebi\ shiny-server-1.4.2.786-amd64.deb}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instalar-o-pacote-libxml2-dev}{%
+\subsubsection{Instalar o pacote
+libxml2-dev}\label{instalar-o-pacote-libxml2-dev}}
+
+\texttt{sudo\ apt-get\ update\ -y}
+\texttt{sudo\ apt-get\ install\ -y\ libxml2-dev}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{instalar-o-pacote-libcurl4-openssl-dev}{%
+\subsubsection{Instalar o pacote
+libcurl4-openssl-dev}\label{instalar-o-pacote-libcurl4-openssl-dev}}
+
+\texttt{sudo\ apt-get\ update}
+\texttt{sudo\ apt-get\ install\ libcurl4-openssl-dev}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{acesso-aos-ambientes}{%
+\subsection{Acesso aos ambientes}\label{acesso-aos-ambientes}}
+
+\hypertarget{rstudio-server}{%
+\subsubsection{Rstudio server}\label{rstudio-server}}
+
+O Rstudio server é disponibilizado na porta \texttt{8787}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{r-shiny-server}{%
+\subsubsection{R-Shiny server}\label{r-shiny-server}}
+
+O R-Shiny server é disponibilizado na porta \texttt{3838}.
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{iniciando-e-parando-o-servidor}{%
+\subsubsection{Iniciando e parando o
+servidor}\label{iniciando-e-parando-o-servidor}}
+
+Para iniciar ou parar servidor, basta usar os seguintes comando:\\
+\texttt{sudo\ systemctl\ start\ shiny-server}
+\texttt{sudo\ systemctl\ stop\ shiny-server}
+
+Também é possível reiniciar o servidor, usando:
+
+\texttt{sudo\ systemctl\ restart\ shiny-server}
+
+\hypertarget{pasta-com-aplicativos}{%
+\subsubsection{Pasta com aplicativos}\label{pasta-com-aplicativos}}
+
+As aplicações se encontram na pasta \texttt{/srv/shiny-server/}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{pasta-com-logs-de-erros}{%
+\subsubsection{Pasta com logs de erros}\label{pasta-com-logs-de-erros}}
+
+Todas os logs contendo mensagens de erros e informações sobre problemas
+na execução das aplicações, se sencontram na seguinte pasta:
+\texttt{/var/log/shiny-server/}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{visualizauxe7uxe3o-dos-indicadores}{%
+\section{Visualização dos
+indicadores}\label{visualizauxe7uxe3o-dos-indicadores}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{autor-author_facet}{%
+\subsection{\texorpdfstring{Autor
+\texttt{author\_facet}}{Autor author\_facet}}\label{autor-author_facet}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(scales)}
+\FunctionTok{library}\NormalTok{(plotly)}
+
+\NormalTok{author\_facet }\OtherTok{\textless{}{-}}\NormalTok{ oasisbrDF}\SpecialCharTok{$}\NormalTok{facets}\SpecialCharTok{$}\NormalTok{author\_facet}
+
+\DocumentationTok{\#\# Ordena coluna \textquotesingle{}count\textquotesingle{}}
+\NormalTok{author\_facet }\OtherTok{\textless{}{-}}\NormalTok{ author\_facet[}\FunctionTok{with}\NormalTok{(author\_facet, }\FunctionTok{order}\NormalTok{(}\SpecialCharTok{{-}}\NormalTok{count)),]}
+
+\DocumentationTok{\#\# Retira registro \textquotesingle{}sem informação\textquotesingle{} da coluna \textquotesingle{}value\textquotesingle{}}
+\NormalTok{author\_facet }\OtherTok{\textless{}{-}}\NormalTok{ author\_facet[author\_facet}\SpecialCharTok{$}\NormalTok{value}\SpecialCharTok{!=}\StringTok{\textquotesingle{}sem informação\textquotesingle{}}\NormalTok{,]}
+
+\DocumentationTok{\#\# Seleciona top 10}
+\NormalTok{author\_facet }\OtherTok{\textless{}{-}} \FunctionTok{head}\NormalTok{(author\_facet, }\AttributeTok{n=}\DecValTok{10}\NormalTok{)}
+
+\DocumentationTok{\#\# Gráfico de top 10 Autore(a)s}
+
+\NormalTok{authorPlot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(author\_facet) }\SpecialCharTok{+}
+  \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =} \FunctionTok{reorder}\NormalTok{(value, count), }\AttributeTok{group =}\NormalTok{ value, }\AttributeTok{weight =}\NormalTok{ count, }
+      \AttributeTok{text=}\FunctionTok{paste}\NormalTok{(}\StringTok{"Autor(a):"}\NormalTok{,value,}\StringTok{"\textless{}br\textgreater{}"}\NormalTok{,}\StringTok{"Quantidade"}\NormalTok{,}\FunctionTok{comma}\NormalTok{(count))) }\SpecialCharTok{+}
+  \FunctionTok{geom\_bar}\NormalTok{(}\AttributeTok{fill =} \StringTok{"\#112446"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Nome do autor(a)"}\NormalTok{, }
+       \AttributeTok{y =} \StringTok{"Total de documentos"}\NormalTok{, }\AttributeTok{title =} \ConstantTok{NULL}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.title.x =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =}\NormalTok{ 14L)) }\SpecialCharTok{+}
+  \FunctionTok{coord\_flip}\NormalTok{()}
+
+\FunctionTok{ggplotly}\NormalTok{(authorPlot, }\AttributeTok{tooltip=}\StringTok{"text"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{README_files/figure-markdown_github/unnamed-chunk-9-1.png}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+\hypertarget{aplicauxe7uxe3o-r-shiny---oasisbr}{%
+\section{Aplicação R-Shiny -
+Oasisbr}\label{aplicauxe7uxe3o-r-shiny---oasisbr}}
+
+\begin{center}\rule{0.5\linewidth}{0.5pt}\end{center}
+
+O principal objetivo da aplicação é exibir visualizações e indicadores
+gerais sobre a base de dados do Oasisbr, além da possibilidade de
+análises avançadas.
+
+\hypertarget{estrutura-do-app}{%
+\subsection{Estrutura do app}\label{estrutura-do-app}}
+
+A aplicação pode ser separada em duas partes:
+
+\texttt{ui}: user side \texttt{server}: server side
+
+Dentro da \texttt{ui} se encontra a interface do usuário para o app, e o
+\texttt{server} possui os comandos para gerar os outputs, que são
+visualizados no user side, podendo interagir com valores de
+\texttt{inputs} fornecidos/selecionados pelo usuário.
+
+A estruturação da \texttt{ui} foi feita utilizando a função
+\texttt{tabsetPanel()}, que permite dividir em abas o conteúdo das
+\texttt{ui}'s. Neste caso, foram criadas três abas: Indicadores gerais,
+Indicadores de evolução e Análises avançadas.
+
+\hypertarget{section-1}{%
+\section{}\label{section-1}}
+
+\hypertarget{funuxe7uxe3o-para-download-de-busca-feita-pelo-usuario}{%
+\subsection{Função para download de busca feita pelo
+usuario}\label{funuxe7uxe3o-para-download-de-busca-feita-pelo-usuario}}
+
+Para a consulta dessas informações, feita via API, foi criada uma função
+\texttt{busca\_oasisbr()}, em R, que parametriza a api e faz as
+solicitações de acordo com o \texttt{input} do usuário. A busca resulta
+em um arquivo no formato \texttt{JSON}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{busca\_oasisbr }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(}\AttributeTok{url=}\StringTok{"http://localhost/vufind/api/v1/search?"}\NormalTok{,}
+\NormalTok{                          lookfor,}
+                          \AttributeTok{type=}\StringTok{"AllFields"}\NormalTok{,}
+                          \AttributeTok{sort=}\StringTok{"relevance"}\NormalTok{,}
+                          \AttributeTok{facet\_parameters=}\StringTok{"\&facet[]=author\_facet\&facet[]=dc.subject.por.fl\_str\_mv\&facet[]=eu\_rights\_str\_mv\&facet[]=dc.publisher.program.fl\_str\_mv\&facet[]=dc.subject.cnpq.fl\_str\_mv\&facet[]=publishDate\&facet[]=language\&facet[]=format\&facet[]=institution\&facet[]=dc.contributor.advisor1.fl\_str\_mv"}\NormalTok{)}
+                          
+\NormalTok{  \{}
+  
+\NormalTok{  query }\OtherTok{\textless{}{-}} \FunctionTok{paste}\NormalTok{(url,}\StringTok{"lookfor="}\NormalTok{,}\FunctionTok{URLencode}\NormalTok{(lookfor),}\StringTok{"\&type="}\NormalTok{,type,}\StringTok{"\&sort="}\NormalTok{,sort,facet\_parameters,}\AttributeTok{sep=}\StringTok{""}\NormalTok{)}
+  
+\NormalTok{  x }\OtherTok{\textless{}{-}} \FunctionTok{fromJSON}\NormalTok{(query)}
+  
+  \FunctionTok{return}\NormalTok{(x)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Neste caso, os inputs utilizados são o termo de busca, utilizado na
+função como o parâmetro \texttt{lookfor}, e o campo, \texttt{type}, no
+qual deve ser feita essa busca. Outros parâmetros também são utilizados,
+como \texttt{sort}, que pode ser usado para ordenar o resultado da
+busca, e o \texttt{facet\_parameters}, onde são declarados os campos
+escolhidos a serem visualizados.
+
+\hypertarget{dataframe-reativo}{%
+\subsubsection{Dataframe reativo}\label{dataframe-reativo}}
+
+Ao início da aplicação, é criado um dataframe reativo, utilizando a
+função \texttt{reactive()}. O objeto reativo \texttt{oasisbrBuscaUser()}
+é criado a partir da função de busca \texttt{busca\_oasisbr()}
+previamente mencionada, com o argumento \texttt{lookfor\ =\ ""}, em
+branco, por se tratar da busca padrão dentro da base.
+
+\begin{verbatim}
+  oasisbrBuscaUser <<- reactive({
+
+    oasisbrDF <- busca_oasisbr(lookfor = "")
+
+    return(oasisbrDF)
+
+  })
+\end{verbatim}
+
+Após o carregamento dá aplicação, o usuário pode realizar pesquisas
+dentro da base. O input para o texto inserido na barra de busca,
+definido na \texttt{ui} da interface, é \texttt{input\$textoBuscaInput}.
+O botão de busca, quando ativado, realiza a consulta ao banco utilizando
+os inputs \texttt{textoBuscaInput} e \texttt{camposInput}, atualiza o
+dataframe reativo \texttt{oasisbrBuscaUser()} e atualiza os outputs dos
+gráficos.
+
+\begin{verbatim}
+  ## Cria DF reativo para a busca do usuário e atualiza outputs
+  
+  observeEvent(input$buscarButton,{
+    
+    print(paste("Iniciado busca para termo:",isolate(input$textoBuscaInput)))
+    
+    oasisbrBuscaUser <<- reactive({
+      
+      start <- Sys.time ()
+      x <- busca_oasisbr(lookfor = URLencode(isolate(input$textoBuscaInput)),
+                    type=isolate(input$camposInput))
+      
+      tempo_de_busca <<- (Sys.time () - start)
+      return(x)
+      
+    })
+    
+    mod_graficos_server("graficos")
+    
+    mod_graficos_evolucao_Server("graficos_evolucao")
+    
+    mod_analises_avancadas_Server("analises_avancadas")
+    
+    })
+\end{verbatim}
+
+\hypertarget{muxf3dulos}{%
+\subsubsection{Módulos}\label{muxf3dulos}}
+
+Para facilitar a organização dos códigos fontes, e também para manter
+boas práticas na construção da aplicação, os códigos foram divididos em
+\texttt{modulos}. Cada módulo possui sua própria função para \texttt{ui}
+e \texttt{server}, o que facilita na implementação de grandes pedaços ou
+partes de código em outras aplicações. Os scripts se encontram dentro da
+pasta \texttt{R}.
+
+Exemplo de trecho de código do módulo de gráficos da aba de indicadores
+gerais: \texttt{R/mod\_graficos.R}
+
+\begin{verbatim}
+mod_graficos_UI <- function(id,x) {
+  ns <- NS(id)
+  
+
+  tagList(
+    fluidRow(
+             box(
+               title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
+               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1, max=25, 10,width="30%")),
+               column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput"),height="300px"),spin="folding-cube",color="green")))
+  )
+  )
+}
+
+mod_graficos_server <- function(id, base) {
+  shiny::moduleServer(
+    id,
+    function(input, output, session) {
+      
+      output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
+      
+      
+    }
+  )
+}
+\end{verbatim}
+
+\hypertarget{funuxe7uxf5es-para-gerar-gruxe1ficos}{%
+\subsubsection{Funções para gerar
+gráficos}\label{funuxe7uxf5es-para-gerar-gruxe1ficos}}
+
+Foram criadas funções para facilitar a inserção de inputs e visualização
+do dados a partir deles. Os scripts se encontram dentro da pasta
+\texttt{plots}. A função possui normalmente dois ou mais argumentos,
+sendo o primeiro deles o dataframe reativo \texttt{oasisbrBuscaUser()},
+e os outros \texttt{inputs} do usuário para filtrar esse objeto. Além
+disso, a função realiza manipulações no dataframe, além de criar
+validações para o caso de erros ou outputs não desejados. Os gráficos
+foram construídos inicialmente utilizando o pacote \texttt{ggplot2}, e,
+posteriormente, o pacote \texttt{plotly}, pois este permite maior
+flexibilidade e interação do usuário diretamente com o gráfico.
+
+Abaixo, o exemplo da função que retorna a visualização de dados
+referentes às instituições presentes na base do Oasisbr.
+
+\begin{verbatim}
+  render_instituicoesPlot <- function(x,y) {
+  
+  ## Validação para busca sem registros
+  shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
+  
+  instituicoes_facet <- x$facets$institution
+  #author_facet
+  
+  ## Validação para informação vazia.
+  shiny::validate(need(is.null(instituicoes_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+  
+  
+  ## Validação para número de termos exibidos
+  shiny::validate(need((y>0 & y<=25), paste("O número de termo exibidos precisa estar entre 0 e 25.")))
+  
+  
+  ## Ordena coluna 'count'
+  instituicoes_facet <- instituicoes_facet[with(instituicoes_facet, order(-count)),]
+  
+  ## Retira registro 'sem informação' da coluna 'value'
+  instituicoes_facet <- instituicoes_facet[instituicoes_facet$value!='sem informação',]
+  
+  ## Adiciona % do total
+  instituicoes_facet <- instituicoes_facet %>% mutate(pctTotal=count/x$resultCount)
+  
+  ## Seleciona top 10
+  instituicoes_facet <- head(instituicoes_facet, n=y)
+  
+  instituicoes_facet$color <- "#76B865"
+  
+  
+  ## Gráfico de top 10 Autore(a)s
+  
+  instituicoesPlot <- ggplot(instituicoes_facet) +
+    aes(x = reorder(value, count), group = value, weight = count, 
+        text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Instituição:</b>',
+                   '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
+                   "<br><br>",
+                   '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
+                   '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(count),"</b>",
+                   "<br><br>")
+    ) +
+    geom_bar(fill = "#76B865") +
+    
+    scale_y_continuous(labels = scales::comma)+
+    labs(x = "<b style='color:gray'>Instituição</b><br><br><b style='color:white'>.", 
+         y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +
+    
+    theme_minimal() +
+    theme(axis.title.x = element_text(size = 14L)) +
+    coord_flip()
+  
+  instituicoesPlot <- ggplotly(instituicoesPlot, tooltip="text")
+  
+  instituicoesPlot %>%
+    
+    layout(font=t, 
+           margin = list(l=50,b = 55),
+           hoverlabel=list(bgcolor="white")
+    ) %>% config(displayModeBar = F) 
+  
+  
+  
+  
+}
+\end{verbatim}
+
+\hypertarget{outputs}{%
+\subsubsection{Outputs}\label{outputs}}
+
+Os outputs são definidos no \texttt{server} da aplicação. Como os
+objetos gráficos criados foram feitos utilizando o pacote
+\texttt{plotly}, precisamos utilizar a função
+\texttt{renderPlotly(\{\})} para renderizá-los. São declarados dentro do
+output a função que renderiza o gráfico em questão (neste caso,
+\texttt{render\_instituicoesPlot()}), com o dataframe reativo
+\texttt{oasisbrBuscaUser()} e um input
+\texttt{input\$instituicoesTopInput} herdado da \texttt{ui}, servindo
+como filtro para a visualização.
+
+\begin{verbatim}
+output$instituicoesPlotlyOutput <- renderPlotly({
+
+render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)
+
+})
+\end{verbatim}
+
+\hypertarget{indicadores-gerais}{%
+\subsubsection{Indicadores Gerais}\label{indicadores-gerais}}
+
+Dentro da aba de indicadores gerais são exibidos nove gráficos,
+referentes aos campos que são recuperados pela consulta ao banco.
+
+Ao lado esquerdo da imagem, a página inicial, e ao lado direito, os
+indicadores atualizados para a busca pelo termo ``biotecnologia'' como
+exemplo. \#
+
+\hypertarget{indicadores-de-evoluuxe7uxe3o-1}{%
+\subsubsection{Indicadores de
+evolução}\label{indicadores-de-evoluuxe7uxe3o-1}}
+
+Os indicadores de evolução são coletados pela api disponível em:
+\texttt{https://api-oasisbr.ibict.br/api/v1/evolution-indicators?init=10/10/2017\&end=10/10/2021}.
+
+\hypertarget{section-2}{%
+\section{}\label{section-2}}
+
+\hypertarget{anuxe1lises-avanuxe7adas}{%
+\subsubsection{Análises avançadas}\label{anuxe1lises-avanuxe7adas}}
+
+Abaixo, uma das análises avançadas disponíveis na máquina de testes, o
+heatmap da quantidade de documentos por instituições e por ano de
+publicação.
+
+\hypertarget{section-3}{%
+\section{}\label{section-3}}
+
+Outras análises avançadas estão em andamento, como a análise de redes de
+colaboraçãoo, visualização em mapas e disponibilização de
+\texttt{pivotTable} para análise livre por parte do usuário.
+
+\hypertarget{customizauxe7uxe3o-css}{%
+\subsubsection{Customização CSS}\label{customizauxe7uxe3o-css}}
+
+A aplicação também pode ser customizada, utilizando CSS. Abaixo é
+exibido o código utilizado para a padronização de fontes e cores do
+aplicativo, além de ajustes finos de layout.
+
+\end{document}

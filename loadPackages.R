@@ -1,33 +1,7 @@
-packages = c("jsonlite", "curl",
-             "dplyr", "plotly","wordcloud2",
-             "ggplot2","esquisse","shinycustomloader","shinyWidgets","scales","stringr","tictoc")
+require("pacman")
 
-## Now load or install&load all
-package.check <- lapply(
-  packages,
-  FUN = function(x) {
-    if (!require(x, character.only = TRUE)) {
-      install.packages(x, dependencies = TRUE)
-      library(x, character.only = TRUE)
-    }
-  }
-)
-
-
-
-# Importa pacotes
-library(jsonlite)
-library(curl)
-library(dplyr)
-library(plotly)
-library(wordcloud2)
-library(ggplot2)
-library(esquisse)
-library(shinycustomloader)
-library(shinyWidgets)
-library(scales)
-library(stringr)
-library(tictoc)
+# Carrega pacotes
+p_load(jsonlite,curl,dplyr,plotly,wordcloud2,ggplot2,esquisse,shinycustomloader,shinyWidgets,scales,stringr,tictoc,htmlwidgets)
 
 # Importa funcões
 source("functions/fonteGraficosPlotly.R",encoding="UTF-8")
@@ -46,6 +20,7 @@ source("plots/tipoAcessoPlot.R", encoding="UTF-8")
 source("plots/programPlot.R", encoding="UTF-8")
 source("plots/wordcloud2_bugfix.R", encoding="UTF-8")
 source("plots/pesquisador_orientacoesPlot.R", encoding="UTF-8")
+source("plots/titulo_da_fonte_plot.R")
 source("plots/instituicoes_Plot.R", encoding="UTF-8")
 source("plots/indicadoresEvolution.R", encoding="UTF-8")
 source("plots/heatmap_Plot.R")

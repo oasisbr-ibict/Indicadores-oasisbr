@@ -9,20 +9,20 @@ ui <- fluidPage(
   includeCSS("www/oasisbr_app.css"), br(),
   
   tabsetPanel(type = "tabs",
-              tabPanel("Indicadores gerais", 
+              
+#====== ABA ======= INDICADORES GERAIS =========================================
+tabPanel("Indicadores gerais", 
   fluidRow(
-
   column(12,h1("Indicadores gerais")),
-  
-  column(12,
-  mod_total_de_documentos_UI("total_de_documentos"),hr()),
+  column(12,mod_total_de_documentos_UI("total_de_documentos"),hr()),
 
        column(12,
          fluidRow(
            column(6,textInput("textoBuscaInput", label=NULL, placeholder = "Filtre os documentos pelos indicadores abaixo",width = "100%")),
            column(3,selectInput("camposInput", label=NULL, choices = c("Todos os campos"="AllFields", "Título"="Title", "Autor"="Author","Assunto"="Subject"),width="100%")),
            column(3,actionButton("buscarButton", "Buscar",width="100%"))
-  )),
+           )
+         ),
    
   column(12, uiOutput("resultadosDaBuscaTextoOutput")),
   
@@ -30,31 +30,29 @@ ui <- fluidPage(
 
 #====== MODULO GRAFICOS UI
 mod_graficos_UI("graficos")
-#======
+#===============================================================================
 ),
 
-#====== ABA === INDICADORES DE EVOLUÇÃO ===
+#====== ABA ====== INDICADORES DE EVOLUÇÃO =====================================
 tabPanel("Indicadores de evolução",
          
          fluidRow(
          column(12,h1("Indicadores de evolução")),
          column(12,mod_total_de_documentos_UI("total_de_documentos2"),
                    mod_graficos_evolucao_UI("graficos_evolucao")))
-
-         
          ),
 
-#====== ABA === Análises avançadas ===
+#===============================================================================
+
+#====== ABA === ANÁLISES AVANÇADAS ===
 tabPanel("Análises avançadas",
          
          fluidRow(
            column(12,h1("Análises avançadas")),
-           mod_analises_avancadas_UI("analises_avancadas")
-           
-)
-         
-         
-)
+           mod_analises_avancadas_UI("analises_avancadas"))
+         )
+#===============================================================================
+
 
 ))
 
@@ -84,7 +82,8 @@ mod_total_de_documentos_Server("total_de_documentos")
 mod_total_de_documentos_Server("total_de_documentos2")  
 
 #====== MODULO GRAFICOS SERVER
-mod_graficos_server("graficos")
+#mod_graficos_server("graficos",busca_usuario=input$textoBuscaInput)
+mod_graficos_server("graficos",input$textoBuscaInput)
 
 #====== MODULO GRAFICOS DE EVOLUCAO SERVER
 mod_graficos_evolucao_Server("graficos_evolucao")
@@ -94,6 +93,11 @@ mod_analises_avancadas_Server("analises_avancadas")
 
   
   ## Cria DF reativo para a busca do usuário e atualiza outputs
+
+texto_reactive <<- reactive({
+  x <- input$textoBuscaInput
+  return(x)
+})
   
   observeEvent(input$buscarButton,{
     
@@ -110,6 +114,8 @@ mod_analises_avancadas_Server("analises_avancadas")
       
     })
     
+
+    
     ## Cria DF reativo com heatmap - analise avancada
     oasisbrBuscaUser_heatmap <<- reactive({
       
@@ -119,7 +125,7 @@ mod_analises_avancadas_Server("analises_avancadas")
       
     })
     
-    mod_graficos_server("graficos")
+    mod_graficos_server("graficos",input$textoBuscaInput)
     
     mod_graficos_evolucao_Server("graficos_evolucao")
     

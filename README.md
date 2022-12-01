@@ -1,3 +1,8 @@
+---
+output:
+  html_document: default
+  pdf_document: default
+---
 # <img src="www/oasisbr.png" align="right" height="100px" alt="" />
 
 ## Indicadores oasisbr
@@ -265,3 +270,242 @@ ggplotly(authorPlot, tooltip="text")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-9-1.png)
+
+------------------------------------------------------------------------
+
+# Aplicação R-Shiny - Oasisbr 
+
+------------------------------------------------------------------------
+
+O principal objetivo da aplicação é exibir visualizações e indicadores gerais sobre a base de dados do Oasisbr, além da possibilidade de análises avançadas.
+
+## Estrutura do app
+A aplicação pode ser separada em duas partes:
+
+`ui`: user side
+`server`: server side
+
+Dentro da `ui` se encontra a interface do usuário para o app, e o `server` possui os comandos para gerar os outputs, que são visualizados no user side, podendo interagir com valores de `inputs` fornecidos/selecionados pelo usuário.
+
+A estruturação da `ui` foi feita utilizando a função `tabsetPanel()`, que permite dividir em abas o conteúdo das `ui`'s. Neste caso, foram criadas três abas: Indicadores gerais, Indicadores de evolução e Análises avançadas.
+
+# <img src="www/tela_inicial.png" align="center" height="750px" alt="" />
+
+## Função para download de busca feita pelo usuario
+
+Para a consulta dessas informações, feita via API, foi criada uma função `busca_oasisbr()`, em R, que parametriza a api e faz as solicitações de acordo com o `input` do usuário. A busca resulta em um arquivo no formato `JSON`.
+
+``` r
+busca_oasisbr <- function(url="http://localhost/vufind/api/v1/search?",
+                          lookfor,
+                          type="AllFields",
+                          sort="relevance",
+                          facet_parameters="&facet[]=author_facet&facet[]=dc.subject.por.fl_str_mv&facet[]=eu_rights_str_mv&facet[]=dc.publisher.program.fl_str_mv&facet[]=dc.subject.cnpq.fl_str_mv&facet[]=publishDate&facet[]=language&facet[]=format&facet[]=institution&facet[]=dc.contributor.advisor1.fl_str_mv")
+                          
+  {
+  
+  query <- paste(url,"lookfor=",URLencode(lookfor),"&type=",type,"&sort=",sort,facet_parameters,sep="")
+  
+  x <- fromJSON(query)
+  
+  return(x)
+}
+
+```
+
+Neste caso, os inputs utilizados são o termo de busca, utilizado na função como o parâmetro `lookfor`, e o campo, `type`, no qual deve ser feita essa busca. Outros parâmetros também são utilizados, como `sort`, que pode ser usado para ordenar o resultado da busca, e o `facet_parameters`, onde são declarados os campos escolhidos a serem visualizados.
+
+### Dataframe reativo
+
+Ao início da aplicação, é criado um dataframe reativo, utilizando a função `reactive()`. O objeto reativo `oasisbrBuscaUser()` é criado a partir da função de busca `busca_oasisbr()` previamente mencionada, com o argumento `lookfor = ""`, em branco, por se tratar da busca padrão dentro da base.
+
+```
+  oasisbrBuscaUser <<- reactive({
+
+    oasisbrDF <- busca_oasisbr(lookfor = "")
+
+    return(oasisbrDF)
+
+  })
+
+```
+
+Após o carregamento dá aplicação, o usuário pode realizar pesquisas dentro da base.
+O input para o texto inserido na barra de busca, definido na `ui` da interface, é `input$textoBuscaInput`. O botão de busca, quando ativado, realiza a consulta ao banco utilizando os inputs `textoBuscaInput` e `camposInput`, atualiza o dataframe reativo `oasisbrBuscaUser()` e atualiza os outputs dos gráficos.
+
+
+```
+  ## Cria DF reativo para a busca do usuário e atualiza outputs
+  
+  observeEvent(input$buscarButton,{
+    
+    print(paste("Iniciado busca para termo:",isolate(input$textoBuscaInput)))
+    
+    oasisbrBuscaUser <<- reactive({
+      
+      start <- Sys.time ()
+      x <- busca_oasisbr(lookfor = URLencode(isolate(input$textoBuscaInput)),
+                    type=isolate(input$camposInput))
+      
+      tempo_de_busca <<- (Sys.time () - start)
+      return(x)
+      
+    })
+    
+    mod_graficos_server("graficos")
+    
+    mod_graficos_evolucao_Server("graficos_evolucao")
+    
+    mod_analises_avancadas_Server("analises_avancadas")
+    
+    })
+```
+
+### Módulos
+
+Para facilitar a organização dos códigos fontes, e também para manter boas práticas na construção da aplicação, os códigos foram divididos em `modulos`. Cada módulo possui sua própria função para `ui` e `server`, o que facilita na implementação de grandes pedaços ou partes de código em outras aplicações. Os scripts se encontram dentro da pasta `R`.
+
+Exemplo de trecho de código do módulo de gráficos da aba de indicadores gerais: `R/mod_graficos.R`
+
+``` 
+mod_graficos_UI <- function(id,x) {
+  ns <- NS(id)
+  
+
+  tagList(
+    fluidRow(
+             box(
+               title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
+               column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1, max=25, 10,width="30%")),
+               column(12,addSpinner(plotlyOutput(ns("instituicoesPlotlyOutput"),height="300px"),spin="folding-cube",color="green")))
+  )
+  )
+}
+
+mod_graficos_server <- function(id, base) {
+  shiny::moduleServer(
+    id,
+    function(input, output, session) {
+      
+      output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
+      
+      
+    }
+  )
+}
+```
+
+### Funções para gerar gráficos
+
+Foram criadas funções para facilitar a inserção de inputs e visualização do dados a partir deles. Os scripts se encontram dentro da pasta `plots`. A função possui normalmente dois ou mais argumentos, sendo o primeiro deles o dataframe reativo `oasisbrBuscaUser()`, e os outros `inputs` do usuário para filtrar esse objeto. Além disso, a função realiza manipulações no dataframe, além de criar validações para o caso de erros ou outputs não desejados. Os gráficos foram construídos inicialmente utilizando o pacote `ggplot2`, e, posteriormente, o pacote `plotly`, pois este permite maior flexibilidade e interação do usuário diretamente com o gráfico.
+
+Abaixo, o exemplo da função que retorna a visualização de dados referentes às instituições presentes na base do Oasisbr.
+
+```
+  render_instituicoesPlot <- function(x,y) {
+  
+  ## Validação para busca sem registros
+  shiny::validate(need(x$resultCount>0, paste("A sua busca não corresponde a nenhum registro.")))  
+  
+  instituicoes_facet <- x$facets$institution
+  #author_facet
+  
+  ## Validação para informação vazia.
+  shiny::validate(need(is.null(instituicoes_facet)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
+  
+  
+  ## Validação para número de termos exibidos
+  shiny::validate(need((y>0 & y<=25), paste("O número de termo exibidos precisa estar entre 0 e 25.")))
+  
+  
+  ## Ordena coluna 'count'
+  instituicoes_facet <- instituicoes_facet[with(instituicoes_facet, order(-count)),]
+  
+  ## Retira registro 'sem informação' da coluna 'value'
+  instituicoes_facet <- instituicoes_facet[instituicoes_facet$value!='sem informação',]
+  
+  ## Adiciona % do total
+  instituicoes_facet <- instituicoes_facet %>% mutate(pctTotal=count/x$resultCount)
+  
+  ## Seleciona top 10
+  instituicoes_facet <- head(instituicoes_facet, n=y)
+  
+  instituicoes_facet$color <- "#76B865"
+  
+  
+  ## Gráfico de top 10 Autore(a)s
+  
+  instituicoesPlot <- ggplot(instituicoes_facet) +
+    aes(x = reorder(value, count), group = value, weight = count, 
+        text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Instituição:</b>',
+                   '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',value,"</b>",
+                   "<br><br>",
+                   '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
+                   '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(count),"</b>",
+                   "<br><br>")
+    ) +
+    geom_bar(fill = "#76B865") +
+    
+    scale_y_continuous(labels = scales::comma)+
+    labs(x = "<b style='color:gray'>Instituição</b><br><br><b style='color:white'>.", 
+         y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +
+    
+    theme_minimal() +
+    theme(axis.title.x = element_text(size = 14L)) +
+    coord_flip()
+  
+  instituicoesPlot <- ggplotly(instituicoesPlot, tooltip="text")
+  
+  instituicoesPlot %>%
+    
+    layout(font=t, 
+           margin = list(l=50,b = 55),
+           hoverlabel=list(bgcolor="white")
+    ) %>% config(displayModeBar = F) 
+  
+  
+  
+  
+}
+```
+
+### Outputs
+Os outputs são definidos no `server` da aplicação. Como os objetos gráficos criados foram feitos utilizando o pacote `plotly`, precisamos utilizar a função `renderPlotly({})` para renderizá-los. São declarados dentro do output a função que renderiza o gráfico em questão (neste caso, `render_instituicoesPlot()`), com o dataframe reativo `oasisbrBuscaUser()` e um input `input$instituicoesTopInput` herdado da `ui`, servindo como filtro para a visualização.
+
+```
+output$instituicoesPlotlyOutput <- renderPlotly({
+
+render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)
+
+})
+```
+
+### Indicadores Gerais
+Dentro da aba de indicadores gerais são exibidos nove gráficos, referentes aos campos que são recuperados pela consulta ao banco.
+
+Ao lado esquerdo da imagem, a página inicial, e ao lado direito, os indicadores atualizados para a busca pelo termo "biotecnologia" como exemplo.
+# <img src="www/aba_indicadores_gerais.png" align="center" height="750px" alt="" />
+
+
+### Indicadores de evolução
+Os indicadores de evolução são coletados pela api disponível em: `https://api-oasisbr.ibict.br/api/v1/evolution-indicators?init=10/10/2017&end=10/10/2021`.
+
+# <img src="www/aba_indicadores_evolucao.png" align="center" height="750px" alt="" />
+
+### Análises avançadas
+Abaixo, uma das análises avançadas disponíveis na máquina de testes, o heatmap da quantidade de documentos por instituições e por ano de publicação. 
+
+# <img src="www/aba_analises_avancadas.png" align="center" height="750px" alt="" />
+
+Outras análises avançadas estão em andamento, como a análise de redes de colaboraçãoo, visualização em mapas e disponibilização de `pivotTable` para análise livre por parte do usuário.
+
+### Customização CSS
+
+A aplicação também pode ser customizada, utilizando CSS. Abaixo é exibido o código utilizado para a padronização de fontes e cores do aplicativo, além de ajustes finos de layout.
+
+
+
+
+
+
+

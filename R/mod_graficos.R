@@ -31,12 +31,7 @@ mod_graficos_UI <- function(id,x) {
                column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="290px"),spin="folding-cube",color="green")),
                height = "450px"
              ),
-             
-             # box(
-             #   title = "Documentos por ano de publicação_facet", width = 6, solidHeader = TRUE, status = "primary",
-             #   column(12,sliderInput(ns("anoPublicacaoSliderInput_facet"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="40%",sep="")),
-             #   column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput_facet"),height="420px"),spin="folding-cube",color="green"))
-             # ),
+        
              
              box(
                title = "Documentos por palavra-chave", width = 12, solidHeader = TRUE, status = "primary",
@@ -76,6 +71,13 @@ mod_graficos_UI <- function(id,x) {
                title = "Pesquisadores com mais orientações", width = 12, solidHeader = TRUE, status = "primary",
                column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
                column(12,addSpinner(plotlyOutput(ns("pesquisadorPlotlyOutput")),spin="folding-cube",color="green")),
+             ),
+             
+             
+             box(
+               title = "Título da fonte", width = 12, solidHeader = TRUE, status = "primary",
+               column(12,numericInput(ns("titulo_fonteTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
+               column(12,addSpinner(plotlyOutput(ns("titulo_fontePlotlyOutput")),spin="folding-cube",color="green")),
              )
              
 
@@ -88,6 +90,11 @@ mod_graficos_server <- function(id, base) {
     id,
     function(input, output, session) {
       
+     # observeEvent(event_data("plotly_click",source="teste"), {
+       # barData = event_data("plotly_click")
+       # showModal(modalDialog(title = "Bar info", "Teste"))
+    #  })
+      
       
       output$authorPlotOutput <- renderPlotly({ renderAuthorPlot(oasisbrBuscaUser(),input$authorTopInput) })
       
@@ -96,9 +103,6 @@ mod_graficos_server <- function(id, base) {
       output$subject_cnpqPlotlyOutput <- renderPlotly({ renderSubjectPlot(oasisbrBuscaUser(),input$subjectTopInput)})
       
       output$publishDatePlotlyOutput <- renderPlotly({renderAnoPublicacaoPlot(oasisbrBuscaUser(),input$anoPublicacaoSliderInput[1],input$anoPublicacaoSliderInput[2])})
-      
-    #  output$publishDatePlotlyOutput_facet <- renderPlotly({renderAnoPublicacaoPlot_facet(oasisbrBuscaUser(),input$anoPublicacaoSliderInput_facet[1],input$anoPublicacaoSliderInput_facet[2])})
-      
       
       output$programPlotlyOutput <- renderPlotly({renderProgramPlot(oasisbrBuscaUser(),input$programTopInput)})
       
@@ -110,7 +114,10 @@ mod_graficos_server <- function(id, base) {
       
       output$pesquisadorPlotlyOutput <- renderPlotly({render_pesquisadorPlot(oasisbrBuscaUser(),input$pesquisadorTopInput)})
       
+      
       output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
+      
+      output$titulo_fontePlotlyOutput <- renderPlotly({render_titulo_fonte_Plot(oasisbrBuscaUser(),input$titulo_fonteTopInput)})
       
       
     }

@@ -17,7 +17,7 @@ mod_texto_resultado_da_busca_server <- function(id, base) {
     function(input, output, session) {
       
       
-      output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: 0 segundos.<hr>',sep="")) })
+      output$resultadosDaBuscaTextoOutput <- renderUI({ HTML(paste('<h3>Mostrando os resultados de <span class="badge">',scales::comma(oasisbrBuscaUser()$resultCount),'</span> documentos para a busca "<span class="badge">',input$textoBuscaInput,'</span>".<br>Tempo de busca: 0 segundos.<hr>',sep="")) })
       
     }
   )
