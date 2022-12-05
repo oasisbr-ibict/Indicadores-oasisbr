@@ -45,12 +45,12 @@ tabPanel("Indicadores de evolução",
 #===============================================================================
 
 #====== ABA === ANÁLISES AVANÇADAS ===
-tabPanel("Análises avançadas",
-         
-         fluidRow(
-           column(12,h1("Análises avançadas")),
-           mod_analises_avancadas_UI("analises_avancadas"))
-         )
+# tabPanel("Análises avançadas",
+#          
+#          fluidRow(
+#            column(12,h1("Análises avançadas")),
+#            mod_analises_avancadas_UI("analises_avancadas"))
+#          )
 #===============================================================================
 
 
