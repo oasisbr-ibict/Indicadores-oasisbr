@@ -39,6 +39,9 @@ tabPanel("Indicadores de evolução",
          fluidRow(
          column(12,h1("Indicadores de evolução")),
          column(12,mod_total_de_documentos_UI("total_de_documentos2"),
+                sliderInput("ano_evolucao_input",
+                            label = "Ano",
+                            min = 2017, max = 2022, value = c(2017, 2022), sep=""),
                    mod_graficos_evolucao_UI("graficos_evolucao")))
          ),
 
@@ -75,6 +78,15 @@ server <- function(input, output, session) {
     return(oasisbrDF_heatmap)
     
   })
+  
+  ## Cria DF reativo com indicadores de evolução
+  oasisbrBuscaUser_heatmap <<- reactive({
+    
+    oasisbrDF_evolucao <- busca_oasirbr_evolucao()
+    
+  })
+  
+  
 
 #====== MODULO TOTAL DE DOCUMENTOS SERVER
 mod_total_de_documentos_Server("total_de_documentos")  

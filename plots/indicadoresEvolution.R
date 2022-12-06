@@ -1,45 +1,37 @@
 
 oasisbrEvolucao <- tryCatch(
   {
-    oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators")
-    return(oasisbrEvolucao)
+    oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators?init=10/10/2010&end=06/12/2022")
     print("========================")
     print("Indicadores de evolução:")
     print("STATUS: ONLINE")
     print("========================")
+    return(oasisbrEvolucao)
+
   },
   error = function(e){
     
     oasisbrEvolucao <- fromJSON("data/indicadores_de_evolucao.json")
-    return(oasisbrEvolucao)
-    
     print("========================")
     print("Indicadores de evolução:")
     print("STATUS: ERRO!")
     print("========================")
-    
+    return(oasisbrEvolucao)
+
   }
 )
 
 
-#print("Resultado do trycatch")
-#print(head(oasisbrEvolucao))
-
-shiny::validate(need(is.null(oasisbrEvolucao)==FALSE, paste("Não existem informações sobre esse(s) registro(s).")))
-
-## Importa dados da API
-#oasisbrEvolucao <- fromJSON("http://localhost:3000/api/v1/evolution-indicators")
-#shiny::validate(need(is.null(oasisbrEvolucao)==FALSE, paste("A sua busca não corresponde a nenhum registro.")))
+shiny::validate(need(is.null(oasisbrEvolucao)==FALSE, paste("Erro.")))
 
 
 ## Cria novo dataframe com 'content'
 content <- oasisbrEvolucao$content
 
+
 ## Transforma coluna 'createdAt' para formato de data.
 content$createdAt <- as.Date(content$createdAt)
 
-## Visualização usando o pacote 'esquisser'
-#esquisser(content)
 
 ## Gráfico
 indicadores_evolucao_plotly <<- ggplotly(
@@ -79,7 +71,7 @@ indicadores_evolucao_fontes_plotly <<- ggplotly(
       colour = sourceType
     ) +
     geom_line(size = 0.5) +
-    geom_point(size=1)+
+    #geom_point(size=0.52)+
     scale_color_hue(direction = 1) +
     labs(
       x = "Ano",
