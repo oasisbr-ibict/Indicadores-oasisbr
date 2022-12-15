@@ -15,11 +15,11 @@ for(i in 1:nrow(x)) {
   
   
   if (i==1) {
-    print(i)
+   
     heatmap_data <- data.frame(instituicao,ano,quantidade)
     
   } else {
-    print(i)
+   
     heatmap_data_i <- data.frame(instituicao,ano,quantidade)
     heatmap_data <- rbind(heatmap_data,heatmap_data_i)
     

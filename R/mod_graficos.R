@@ -4,6 +4,22 @@ mod_graficos_UI <- function(id,x) {
 
   tagList(
     fluidRow(
+     
+  column(12,h1("Indicadores gerais")),
+  
+  column(12,mod_total_de_documentos_UI("total_de_documentos"),hr()),
+
+       column(12,
+         fluidRow(
+           column(6,textInput("textoBuscaInput", label=NULL, placeholder = "Filtre os documentos pelos indicadores abaixo",width = "100%")),
+           column(3,selectInput("camposInput", label=NULL, choices = c("Todos os campos"="AllFields", "Título"="Title", "Autor"="Author","Assunto"="Subject"),width="100%")),
+           column(3,actionButton("buscarButton", "Buscar",width="100%"))
+           )
+         ),
+   
+  column(12, uiOutput("resultadosDaBuscaTextoOutput")),
+  
+
              box(
                title = "Instituições com mais documentos", width = 6, solidHeader = TRUE, status = "primary",
                column(12,numericInput(ns("instituicoesTopInput"),"Termos exibidos",min=1, max=25, 10,width="30%")),
@@ -113,7 +129,6 @@ mod_graficos_server <- function(id, base) {
       output$tipoAcessoPlotlyOutput <- renderPlotly({renderTipoAcessoPlot(oasisbrBuscaUser())})
       
       output$pesquisadorPlotlyOutput <- renderPlotly({render_pesquisadorPlot(oasisbrBuscaUser(),input$pesquisadorTopInput)})
-      
       
       output$instituicoesPlotlyOutput <- renderPlotly({render_instituicoesPlot(oasisbrBuscaUser(),input$instituicoesTopInput)})
       

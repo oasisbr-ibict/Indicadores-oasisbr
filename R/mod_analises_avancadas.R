@@ -1,8 +1,9 @@
 mod_analises_avancadas_UI <- function(id) {
   ns <- NS(id)
+  
   tagList(
     # Sidebar
-    
+    column(12,h1("Análises avançadas")),
     sidebarPanel(
       selectInput(ns("analises_input"), "Selecionar análise:",
                   choices = c("clique_aqui","heatmap", "redes"),selected = "clique_aqui"),
@@ -23,11 +24,7 @@ mod_analises_avancadas_UI <- function(id) {
         condition = "input.analises_input == 'heatmap'",ns=ns,
         column(12,fluidRow(plotlyOutput(ns("heatmap_output"),height="800px")))
       )
-
-      
     )
-    
-  
   )
 }
 
@@ -36,11 +33,18 @@ mod_analises_avancadas_Server <- function(id) {
     id,
     function(input, output, session) {
       
-
-      
-
-      
-     # instituicoes_unicas <<- unique(heatmap_data$instituicao)
+# if (input$analises_input=="heatmap") {
+#   
+#   ## Cria DF reativo com heatmap - analise avancada
+#   oasisbrBuscaUser_heatmap <<- reactive({
+#     
+#     oasisbrDF_heatmap <- busca_oasisbr_heatmap()
+#     
+#     return(oasisbrDF_heatmap)
+#     
+#   })
+#   
+# }
       
       output$heatmap_output <- renderPlotly(render_heatmap_plot(oasisbrBuscaUser_heatmap(),min=input$ano_heatmap_input[1],max=input$ano_heatmap_input[2],n_instituicoes=input$top_instituicoes))
       

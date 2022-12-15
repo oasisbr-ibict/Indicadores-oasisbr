@@ -38,9 +38,23 @@ mod_total_de_documentos_Server <- function(id) {
     function(input, output, session) {
       
       
-      output$totalDocumentosOutput <- renderText({ scales::comma(total_de_documentos) })
+      # Objeto reativo para tipos de documento
+      tipos_doc <- reactive({
+        
+        x <- tipos_de_documento(oasisbrBuscaUser())
+        return(x)
+        
+      })
       
-     # output$teses_dissertacoes_output <- renderText({ nrow(subset(oasisbrBuscaUser(), format %in% c("masterThesis","doctoralThesis"))) })
+      output$totalDocumentosOutput <- renderText({ scales::comma(oasisbrBuscaUser()$resultCount)})
+      
+      output$teses_dissertacoes_output <- renderText({ total_documento(tipos_doc(),c("masterThesis","doctoralThesis")) })
+      
+      output$artigos_output <- renderText({ total_documento(tipos_doc(),c("article")) })
+      
+      output$conjunto_dados_output <- renderText({ total_documento(tipos_doc(),c("dataset")) })
+      
+      output$livros_capitulos_output <- renderText({ total_documento(tipos_doc(),c("book","bookPart")) })
       
       
     }
