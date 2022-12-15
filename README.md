@@ -1,8 +1,3 @@
----
-output:
-  html_document: default
-  pdf_document: default
----
 # <img src="www/oasisbr.png" align="right" height="100px" alt="" />
 
 ## Indicadores oasisbr
