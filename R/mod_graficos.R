@@ -1,13 +1,12 @@
 mod_graficos_UI <- function(id,x) {
   ns <- NS(id)
   
-
   tagList(
     fluidRow(
      
   column(12,h1("Indicadores gerais")),
   
-  column(12,mod_total_de_documentos_UI("total_de_documentos"),hr()),
+  column(12,mod_total_de_documentos_UI("total_de_documentos")),
 
        column(12,
          fluidRow(
@@ -95,8 +94,6 @@ mod_graficos_UI <- function(id,x) {
                column(12,numericInput(ns("titulo_fonteTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
                column(12,addSpinner(plotlyOutput(ns("titulo_fontePlotlyOutput")),spin="folding-cube",color="green")),
              )
-             
-
     )
   )
 }
@@ -110,7 +107,6 @@ mod_graficos_server <- function(id, base) {
        # barData = event_data("plotly_click")
        # showModal(modalDialog(title = "Bar info", "Teste"))
     #  })
-      
       
       output$authorPlotOutput <- renderPlotly({ renderAuthorPlot(oasisbrBuscaUser(),input$authorTopInput) })
       

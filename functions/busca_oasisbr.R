@@ -14,7 +14,7 @@ busca_oasisbr <- function(url="http://localhost/vufind/api/v1/search?",
   return(x)
 }
 
-
+# Função de busca para criar heatmap utilizando a funcao 'facet.pivot'
 busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/select?facet.field=institution&facet=on&indent=on&facet.pivot=publishDate,network_acronym_str",
                                   q="*:*",
                                   rows="1",
@@ -26,43 +26,76 @@ busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/sele
   return(x)
 }
 
-heatmap_instituicoes <- function(x) {
-  
-  x <- x$facet_counts$facet_pivot$`publishDate,network_acronym_str`
-  
-  
-  for(i in 1:nrow(x)) {
-    
-    y <- as.integer(x$value[i])
-    z <- data.frame(x$pivot[i])
-    
-    ano <- y
-    instituicao <- z$value
-    quantidade <- z$count
-    
-    
-    if (i==1) {
-      #print(i)
-      heatmap_data <<- data.frame(instituicao,ano,quantidade)
-      
-    } else {
-     # print(i)
-      heatmap_data_i <- data.frame(instituicao,ano,quantidade)
-      heatmap_data <- rbind(heatmap_data,heatmap_data_i)
-      
-      
-    }
-    
-    instituicoes_unicas <- as.character(unique(heatmap_data$instituicao))
-    return(instituicoes_unicas)
-  }
-  
-}
-
-
-instituicoes_unicas <<- heatmap_instituicoes(x=busca_oasisbr_heatmap())
-
-
-#heatmap_solr_facet_pivot <- busca_oasisbr_heatmap()
-
-
+# heatmap_instituicoes <- function(x) {
+#   
+#   x <- x$facet_counts$facet_pivot$`publishDate,network_acronym_str`
+#   
+#   
+#   for(i in 1:nrow(x)) {
+#     
+#     y <- as.integer(x$value[i])
+#     z <- data.frame(x$pivot[i])
+#     
+#     ano <- y
+#     instituicao <- z$value
+#     quantidade <- z$count
+#     
+#     
+#     if (i==1) {
+#       #print(i)
+#       heatmap_data <<- data.frame(instituicao,ano,quantidade)
+#       
+#     } else {
+#      # print(i)
+#       heatmap_data_i <- data.frame(instituicao,ano,quantidade)
+#       heatmap_data <- rbind(heatmap_data,heatmap_data_i)
+#       
+#       
+#     }
+#     
+#     instituicoes_unicas <- as.character(unique(heatmap_data$instituicao))
+#     return(instituicoes_unicas)
+#   }
+#   
+# }
+# 
+# 
+# instituicoes_unicas <<- heatmap_instituicoes(x=busca_oasisbr_heatmap())
+# 
+# 
+# #heatmap_solr_facet_pivot <- busca_oasisbr_heatmap()
+# 
+# #######################################################################################
+# 
+# heatmap_format_publishDate <- function(x) {
+#   
+#   x <- x$facet_counts$facet_pivot$`publishDate,format`
+#   
+#   
+#   for(i in 1:nrow(x)) {
+#     
+#     y <- as.integer(x$value[i])
+#     z <- data.frame(x$pivot[i])
+#     
+#     ano <- y
+#     instituicao <- z$value
+#     quantidade <- z$count
+#     
+#     
+#     if (i==1) {
+#       #print(i)
+#       heatmap_data <<- data.frame(instituicao,ano,quantidade)
+#       
+#     } else {
+#       # print(i)
+#       heatmap_data_i <- data.frame(instituicao,ano,quantidade)
+#       heatmap_data <- rbind(heatmap_data,heatmap_data_i)
+#       
+#       
+#     }
+#     
+#     instituicoes_unicas <- as.character(unique(heatmap_data$instituicao))
+#     return(instituicoes_unicas)
+#   }
+#   
+# }

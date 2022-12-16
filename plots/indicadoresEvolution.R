@@ -43,7 +43,7 @@ indicadores_evolucao_plotly <<- ggplotly(
       colour = sourceType
     ) +
     geom_line(size = 0.5) +
-    geom_point(size=1)+
+    #geom_point(size=1)+
     scale_color_hue(direction = 1) +
     labs(
       x = "Ano",
@@ -75,7 +75,7 @@ indicadores_evolucao_fontes_plotly <<- ggplotly(
     scale_color_hue(direction = 1) +
     labs(
       x = "Ano",
-      y = "Total de documentos",
+      y = "Total de fontes",
       title = "",
       subtitle = "Subtítulo",
       caption = "Caption",

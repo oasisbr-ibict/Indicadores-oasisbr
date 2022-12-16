@@ -11,7 +11,7 @@ mod_analises_avancadas_UI <- function(id) {
         condition = "input.analises_input == 'heatmap'",ns=ns,
         column(12,sliderInput(ns("ano_heatmap_input"),
                               label = "Ano de publicação",
-                              min = 1900, max = 2022, value = c(1900, 2022))),
+                              min = 1970, max = 2022, value = c(1970, 2022),sep="")),
         numericInput(ns("top_instituicoes"),"Qtde. de Instituicoes",min=1,max=133, value=80)
        # selectInput(ns("instituicoes_input"),"Selecionar instituicoes",choices = instituicoes_unicas,multiple = TRUE)
       )
