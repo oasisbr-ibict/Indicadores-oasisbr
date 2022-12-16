@@ -15,7 +15,7 @@ shiny::validate(need(is.null(tipoAcesso_facet)==FALSE, paste("A sua busca não c
 ## Levar para arquivo separado com valores traduzidos (exemplo: import.R)
 traducao_tipoAcesso <- data.frame(value=c("openAccess","embargoedAccess","restrictedAccess"),valuePor=c("Acesso aberto","Acesso embargado","Acesso restrito"),color=c("#76B865","#EA6A47","#CED2CC"))
 
-tipoAcesso_facet <- left_join(traducao_tipoAcesso,tipoAcesso_facet)
+tipoAcesso_facet <- left_join(traducao_tipoAcesso,tipoAcesso_facet, by="value")
 
 ## Ordena coluna 'count'
 tipoAcesso_facet <- tipoAcesso_facet[with(tipoAcesso_facet, order(-count)),]

@@ -44,7 +44,6 @@ server <- function(input, output, session) {
     oasisbrDF <- busca_oasisbr(lookfor = "")
     return(oasisbrDF)
   })
-  
 
   ## Cria DF reativo com heatmap - analise avancada
   oasisbrBuscaUser_heatmap <<- reactive({
@@ -77,8 +76,11 @@ mod_analises_avancadas_Server("analises_avancadas")
 texto_reactive <<- reactive({
   x <- input$textoBuscaInput
   return(x)
-})
-  
+  })
+
+
+## Inicia busca pelo termo inserido e atualiza outputs
+
   observeEvent(input$buscarButton,{
     
     print(paste("Iniciado busca para termo:",isolate(input$textoBuscaInput)))
