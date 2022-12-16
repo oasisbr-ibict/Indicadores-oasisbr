@@ -56,6 +56,21 @@ server <- function(input, output, session) {
     oasisbrDF_evolucao <- busca_oasisbr_evolucao()
   })
   
+  ## Cria DF reativo com indicadores de evolução por tipo de documento
+  oasisbrBuscaUser_tipodoc_ano <<- reactive({
+
+    if (input$textoBuscaInput=="") {
+     
+      x <- busca_oasisbr_tipodoc_ano(q="*:*")
+       
+    } else {
+    
+    x <- busca_oasisbr_tipodoc_ano(q=isolate(input$textoBuscaInput))
+    return(x)
+    }
+
+  })
+  
 
 #====== MODULO TOTAL DE DOCUMENTOS SERVER
 mod_total_de_documentos_Server("total_de_documentos")  

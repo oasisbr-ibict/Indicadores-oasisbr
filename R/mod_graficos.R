@@ -46,6 +46,12 @@ mod_graficos_UI <- function(id,x) {
                column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="290px"),spin="folding-cube",color="green")),
                height = "450px"
              ),
+  
+             box(
+               title = "Documentos por tipo e ano", width = 12, solidHeader = TRUE, status = "primary",
+               column(12,sliderInput(ns("tipo_docSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="30%",sep="")),
+               column(12,addSpinner(plotlyOutput(ns("tipo_anoPlotlyOutput")),spin="folding-cube",color="green")),
+             ),
         
              
              box(
@@ -94,6 +100,9 @@ mod_graficos_UI <- function(id,x) {
                column(12,numericInput(ns("titulo_fonteTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
                column(12,addSpinner(plotlyOutput(ns("titulo_fontePlotlyOutput")),spin="folding-cube",color="green")),
              )
+  
+  
+
     )
   )
 }
@@ -102,11 +111,6 @@ mod_graficos_server <- function(id, base) {
   shiny::moduleServer(
     id,
     function(input, output, session) {
-      
-     # observeEvent(event_data("plotly_click",source="teste"), {
-       # barData = event_data("plotly_click")
-       # showModal(modalDialog(title = "Bar info", "Teste"))
-    #  })
       
       output$authorPlotOutput <- renderPlotly({ renderAuthorPlot(oasisbrBuscaUser(),input$authorTopInput) })
       
@@ -130,6 +134,18 @@ mod_graficos_server <- function(id, base) {
       
       output$titulo_fontePlotlyOutput <- renderPlotly({render_titulo_fonte_Plot(oasisbrBuscaUser(),input$titulo_fonteTopInput)})
       
+      output$tipo_anoPlotlyOutput <- renderPlotly({render_tipodoc_ano_plot(x=oasisbrBuscaUser_tipodoc_ano(),min_ano=input$tipo_docSliderInput[1],max_ano=input$tipo_docSliderInput[2])})
+      
+      # busca_tipo_ano_reativo <- reactive({
+      #   
+      #   x <- input$textoBuscaI
+      #   
+      # })
+      
+      # observeEvent(event_data("plotly_click",source="teste"), {
+      # barData = event_data("plotly_click")
+      # showModal(modalDialog(title = "Bar info", "Teste"))
+      #  })
       
     }
   )

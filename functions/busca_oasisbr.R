@@ -26,6 +26,18 @@ busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/sele
   return(x)
 }
 
+
+busca_oasisbr_tipodoc_ano <- function(url="http://172.16.17.42:8080/solr/biblio/select?facet.field=institution&facet=on&indent=on&facet.pivot=publishDate,format",
+                                  q="*:*",
+                                  rows="1",
+                                  wt="json") {
+  query <- paste(url,"&q=",URLencode(q),"&rows=",rows,"&wt=",wt,sep="")
+  #print(query)
+  x <- fromJSON(query)
+  
+  return(x)
+}
+
 # heatmap_instituicoes <- function(x) {
 #   
 #   x <- x$facet_counts$facet_pivot$`publishDate,network_acronym_str`
