@@ -41,18 +41,16 @@ mod_graficos_UI <- function(id,x) {
              ),
              
              box(
-               title = "Documentos por ano de publicação", width = 6, solidHeader = TRUE, status = "primary",
-               column(12,sliderInput(ns("anoPublicacaoSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="30%",sep="")),
-               column(12,addSpinner(plotlyOutput(ns("publishDatePlotlyOutput"),height="290px"),spin="folding-cube",color="green")),
-               height = "450px"
+               title = "Título da fonte", width = 6, solidHeader = TRUE, status = "primary",
+               column(12,numericInput(ns("titulo_fonteTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
+               column(12,addSpinner(plotlyOutput(ns("titulo_fontePlotlyOutput"),height="312px"),spin="folding-cube",color="green")),
              ),
   
              box(
                title = "Documentos por tipo e ano", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,sliderInput(ns("tipo_docSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(2011, 2021),width="30%",sep="")),
-               column(12,addSpinner(plotlyOutput(ns("tipo_anoPlotlyOutput")),spin="folding-cube",color="green")),
+               column(12,sliderInput(ns("tipo_docSliderInput"),"Ano de publicação",min = 1980, max = 2022, value = c(1980, 2021),width="30%",sep="")),
+               column(12,addSpinner(plotlyOutput(ns("tipo_anoPlotlyOutput"),height="350px"),spin="folding-cube",color="green")),
              ),
-        
              
              box(
                title = "Documentos por palavra-chave", width = 12, solidHeader = TRUE, status = "primary",
@@ -66,7 +64,6 @@ mod_graficos_UI <- function(id,x) {
                column(12,addSpinner(plotlyOutput(ns("subject_cnpqPlotlyOutput")),spin="folding-cube",color="green"))
              ),
 
-             
              box(
                title = "Documentos por programa de pós-graduação - PPG", width = 6, solidHeader = TRUE, status = "primary",
                column(12,numericInput(ns("programTopInput"),"Termos exibidos", min = 1, max = 25, 10, width="30%")),
@@ -79,30 +76,17 @@ mod_graficos_UI <- function(id,x) {
                column(12,addSpinner(plotlyOutput(ns("authorPlotOutput"),height="437px"),spin="folding-cube",color="green"))
              ),
 
-             
              box(
                title = "Documentos por idioma", width = 6, solidHeader = TRUE, status = "primary",
                column(12,addSpinner(plotlyOutput(ns("idiomaPlotlyOutput"),height="475px"),spin="folding-cube",color="green")),
                tags$i(h5("As áreas no gráfico não são perfeitamente proporcionais aos valores de cada entrada",align="center"))
              ),
-             
-
-             
+  
              box(
                title = "Pesquisadores com mais orientações", width = 12, solidHeader = TRUE, status = "primary",
                column(12,numericInput(ns("pesquisadorTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
                column(12,addSpinner(plotlyOutput(ns("pesquisadorPlotlyOutput")),spin="folding-cube",color="green")),
-             ),
-             
-             
-             box(
-               title = "Título da fonte", width = 12, solidHeader = TRUE, status = "primary",
-               column(12,numericInput(ns("titulo_fonteTopInput"),"Termos exibidos", min=1, max=30, 10,width="30%")),
-               column(12,addSpinner(plotlyOutput(ns("titulo_fontePlotlyOutput")),spin="folding-cube",color="green")),
              )
-  
-  
-
     )
   )
 }

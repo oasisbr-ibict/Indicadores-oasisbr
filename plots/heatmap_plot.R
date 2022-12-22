@@ -106,19 +106,25 @@ render_tipodoc_ano_plot <- function(x,min_ano,max_ano) {
     mutate(totalAno = sum(quantidade)) %>% group_by(formato) %>%
     mutate(total_formato = sum(quantidade))
   
-  # Cria variaveis com valor máximo e mínimo para ano de publicação
-  #ano_minimo <- min(data$ano)
-  #ano_maximo <- max(data$ano)
+  traducao_tipoDocumento <- data.frame(valuePor = c("Artigo","Dissertação","Tese","Trabalho de conclusão de curso","Relatório","Capítulo de livro","Livro","NA","Artigo de conferência","Artigo (review)","Outros","Conjunto de dados","Artigo (working paper)"),
+                                       value = c("article","masterThesis","doctoralThesis","bachelorThesis","report","bookPart","book","<NA>","conferenceObject","review","other","dataset","workingPaper"))
   
-  # Top instituicoes
-  #top_instituicoes <- unique(heatmap_data[,c("instituicao","totalInstituicao")])
-  #top_instituicoes <- head(top_instituicoes$instituicao,n=n_instituicoes)
+  data <- left_join(data, traducao_tipoDocumento,by=c("formato"="value"))
+
   
   # Subseta DF com heatmap
   data <- subset(data, ano %in% c(min_ano:max_ano))
   
   data <- ggplot(data) +
-    aes(x = ano, y = quantidade, colour = formato) +
+    aes(x = ano, y = quantidade, colour = valuePor, group=valuePor, text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Formato:</b>',
+                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',valuePor,"</b>",
+                                                               "<br><br>",
+                                                               '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
+                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(quantidade),"</b>",
+                                                               "<br><br>",
+                                                               '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Ano de publicação:</b>',
+                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',ano,"</b>",
+                                                               "<br><br>")) +
     geom_line(size = 0.5) +
     scale_color_hue(direction = 1) +
     labs(
@@ -129,8 +135,10 @@ render_tipodoc_ano_plot <- function(x,min_ano,max_ano) {
     theme_minimal()
   
   
-  data_plotly <- ggplotly(data)
-  ggplotly(data_plotly)
+  ggplotly(data) %>%     layout(font=t, 
+                                       margin = list(l=50,b = 55),
+                                       hoverlabel=list(bgcolor="white")
+  ) %>% config(displayModeBar = F) 
   
 }
 

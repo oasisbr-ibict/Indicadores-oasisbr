@@ -8,7 +8,7 @@ ui <- fluidPage(useShinydashboard(),
   includeCSS("www/oasisbr_app.css"), br(),
   
 tabsetPanel(type = "tabs",
-              
+
 #====== ABA ======= INDICADORES GERAIS =========================================
 tabPanel("Indicadores gerais", 
 
@@ -33,9 +33,10 @@ tabPanel("Análises avançadas",
 #====== MODULO ANALISES AVANCADAS UI         
 mod_analises_avancadas_UI("analises_avancadas")
 #===============================================================================
-)
 
-))
+)
+)
+)
 
 server <- function(input, output, session) {
   
