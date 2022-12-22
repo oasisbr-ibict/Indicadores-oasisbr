@@ -1,5 +1,7 @@
-## Funcao para download de busca feita pelo usuario
+## Funcões para download de busca feitas pelo usuário
 
+################################################################################
+# Função de busca para criar json com busca feita pelo usuario utilizando a API
 busca_oasisbr <- function(url="http://localhost/vufind/api/v1/search?",
                           lookfor,
                           type="AllFields",
@@ -13,8 +15,12 @@ busca_oasisbr <- function(url="http://localhost/vufind/api/v1/search?",
   
   return(x)
 }
+################################################################################
 
-# Função de busca para criar heatmap utilizando a funcao 'facet.pivot'
+
+
+################################################################################
+# Função de busca para criar heatmap utilizando a funcao 'facet.pivot' do solr
 busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/select?facet.field=institution&facet=on&indent=on&facet.pivot=publishDate,network_acronym_str",
                                   q="*:*",
                                   rows="1",
@@ -25,8 +31,11 @@ busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/sele
   
   return(x)
 }
+################################################################################
 
-# Função de busca para tipo de documento por ano utilizando a funcao 'facet.pivot'
+
+################################################################################
+# Função de busca para tipo de documento por ano utilizando a funcao 'facet.pivot' do solr
 busca_oasisbr_tipodoc_ano <- function(url="http://172.16.17.42:8080/solr/biblio/select?facet.field=institution&facet=on&indent=on&facet.pivot=publishDate,format",
                                   q="*:*",
                                   rows="1",
@@ -37,3 +46,4 @@ busca_oasisbr_tipodoc_ano <- function(url="http://172.16.17.42:8080/solr/biblio/
   
   return(x)
 }
+################################################################################
