@@ -59,7 +59,8 @@ publishDatePlot <- ggplot(publishDate) +
       ) +
   geom_bar(fill = "#76B865") +
   labs(x = "<b style='color:gray; font-size:14px'>Ano de publicação</b><br><b style='color:white'>.", 
-       y = "<b style='color:gray; font-size:14px'>Total de documentos<br><b style='color:white'>.", title = NULL) +
+      # y = "<b style='color:gray; font-size:14px'>Total de documentos<br><b style='color:white'>.", 
+       title = NULL) +
   theme_minimal() +
   scale_y_continuous(labels = scales::comma)+
   scale_x_continuous(breaks=min(publishDate$value):max(publishDate$value))+

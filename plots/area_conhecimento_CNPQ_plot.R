@@ -86,7 +86,8 @@ subject_cnpqPlot <- ggplot(subject_cnpq) +
                  )) +
   geom_bar(fill = "#76B865") +
   scale_y_continuous(labels = scales::comma)+
-  labs(x = "<b style='color:gray'>Área do conhecimento CNPQ</b><br><br><b style='color:white'>.", 
+  labs(x="",
+       #x = "<b style='color:gray'>Área do conhecimento CNPQ</b><br><br><b style='color:white'>.", 
        y = "<b style='color:gray; font-size:14px'>Total de documentos", title = NULL) +
   theme_minimal() +
   theme(axis.title.x = element_text(size = 14L)) +

@@ -73,7 +73,7 @@ ggplotly(heatmap)
 ################################################################################
 render_tipodoc_ano_plot <- function(x,min_ano,max_ano) {
   
-  
+ #x <- busca_oasisbr_tipodoc_ano()
   x <- x$facet_counts$facet_pivot$`publishDate,format`
   
   
@@ -104,7 +104,8 @@ render_tipodoc_ano_plot <- function(x,min_ano,max_ano) {
   # Cria coluna com totais por linha e total por coluna
   data <- data %>% group_by(ano) %>%
     mutate(totalAno = sum(quantidade)) %>% group_by(formato) %>%
-    mutate(total_formato = sum(quantidade))
+    mutate(total_formato = sum(quantidade))# %>%
+   # group_by(ano,formato) #%>% mutate(total_acumulado = cumsum(quantidade))
   
   traducao_tipoDocumento <- data.frame(valuePor = c("Artigo","Dissertação","Tese","Trabalho de conclusão de curso","Relatório","Capítulo de livro","Livro","NA","Artigo de conferência","Artigo (review)","Outros","Conjunto de dados","Artigo (working paper)"),
                                        value = c("article","masterThesis","doctoralThesis","bachelorThesis","report","bookPart","book","<NA>","conferenceObject","review","other","dataset","workingPaper"))
@@ -115,30 +116,41 @@ render_tipodoc_ano_plot <- function(x,min_ano,max_ano) {
   # Subseta DF com heatmap
   data <- subset(data, ano %in% c(min_ano:max_ano))
   
-  data <- ggplot(data) +
-    aes(x = ano, y = quantidade, colour = valuePor, group=valuePor, text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Formato:</b>',
-                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',valuePor,"</b>",
-                                                               "<br><br>",
-                                                               '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
-                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(quantidade),"</b>",
-                                                               "<br><br>",
-                                                               '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Ano de publicação:</b>',
-                                                               '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',ano,"</b>",
-                                                               "<br><br>")) +
+  grafico <- ggplot(data) +
+    
+    #ggplot(data) +
+    aes(x = ano, y = quantidade, colour = valuePor) +
     geom_line(size = 0.5) +
     scale_color_hue(direction = 1) +
-    labs(
-      x = "Ano de publicação",
-      y = "Quantidade de documentos",
-      title = "Tipos de documento por ano de publicação"
-    ) +
     theme_minimal()
   
+    # 
+    # aes(x = ano, y = quantidade, colour=formato, text=paste('<b style="font-family: Lato !important; align=left; font-size:14px; font-weight:400; color:gray">Formato:</b>',
+    #                                                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',valuePor,"</b>",
+    #                                                            "<br><br>",
+    #                                                            '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Total de documentos:</b>',
+    #                                                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',comma(totalAno),"</b>",
+    #                                                            "<br><br>",
+    #                                                            '<b style="font-family: Lato !important; align=left; font-size:14px font-weight:400; color:gray">Ano de publicação:</b>',
+    #                                                            '<b style="font-family: Lato !important; align=left; font-size:16px; font-weight:600 color: black">',ano,"</b>",
+    #                                                            "<br><br>")) +
+    # geom_line(size = 0.5) +
+    #scale_color_hue(direction = 1) +
+    #labs(
+    #  x = "Ano de publicação",
+    #  y = "Quantidade de documentos",
+    #  title = "Tipos de documento por ano de publicação",
+     # color="Tipo de documento"
+    #) +
+
   
-  ggplotly(data) %>%     layout(font=t, 
+  
+  ggplotly(grafico) %>%     layout(font=t, legend=list(title=list(text='<b> Tipo de documento </b>')),
                                        margin = list(l=50,b = 55),
                                        hoverlabel=list(bgcolor="white")
   ) %>% config(displayModeBar = F) 
   
 }
 
+#data2 <- data %>% group_by(ano,formato) %>% mutate(total_acumulado = cumsum(quantidade))
+#esquisser(data2)
