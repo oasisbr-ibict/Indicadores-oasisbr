@@ -41,3 +41,11 @@
   .irs--shiny .irs-bar { border-top: 1px solid #428bca;  border-bottom: 1px solid #428bca; background: #76B865; }
   
   .irs--shiny .irs-from, .irs--shiny .irs-to, .irs--shiny .irs-single { background-color: #76B865; }
+  
+  
+  .bg-blue { background: black !important; border-radius:55px;}
+  
+  .bg-aqua { background: black !important; border-radius:55px;}
+  
+  .info-box-number {font-size:12px; }
+  .info-box {min-height:100px;}

@@ -2,10 +2,10 @@
 title: "Documentação app indicadores oasisbr"
 author: "Lucca de Farias Ramalho"
 output:
+  pdf_document: default
   md_document:
     variant: markdown_github
   word_document: default
-  pdf_document: default
   html_document: default
 ---
 # <img src="www/oasisbr.png" align="right" height="100px" alt="" />

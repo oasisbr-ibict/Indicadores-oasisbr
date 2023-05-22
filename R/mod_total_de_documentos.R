@@ -2,31 +2,37 @@ mod_total_de_documentos_UI <- function(id) {
   ns <- NS(id)
   tagList(
     
-  fluidRow(splitLayout(
-    valueBox(
+  fluidRow(column(12,
+    infoBox(
       h4(textOutput(ns("totalDocumentosOutput"))),
       "Total de documentos", icon = icon("database"), width = "100%",color = "blue"
-      ),
-    
-    valueBox(
+    )),
+   # splitLayout(
+
+    column(3,
+    infoBox(
       h4(textOutput(ns("artigos_output"))),
       "Artigos", icon = icon("newspaper"), width = "100%"
-      ),
+      )),
   
-    valueBox(
+   column(3,
+    infoBox(
       h4(textOutput(ns("teses_dissertacoes_output"))),
-      "Teses e dissertações", icon = icon("book-open"), width = "100%"
-      ),
-  valueBox(
+      HTML("Teses e<br>dissertações"), icon = icon("book-open"), width = "100%"
+      )),
+   
+   column(3,
+  infoBox(
       h4(textOutput(ns("conjunto_dados_output"))),
-      "Conjunto de dados", icon = icon("table"), width = "100%"
-      ),
+      HTML("Conjunto<br>de dados"), icon = icon("table"), width = "100%"
+      )),
   
-  valueBox(
+  column(3,
+  infoBox(
     h4(textOutput(ns("livros_capitulos_output"))),
-    "Livros e capítulos de livros", icon = icon("book"), width = "100%"
-  )
-  )
+    HTML("Livros e capítulos<br>de livros"), icon = icon("book"), width = "100%"
+  ))
+  #)
   )
   
   )

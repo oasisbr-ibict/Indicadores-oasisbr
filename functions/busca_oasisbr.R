@@ -10,7 +10,7 @@ busca_oasisbr <- function(url="http://localhost/vufind/api/v1/search?",
   {
   
   query <- paste(url,"lookfor=",URLencode(lookfor),"&type=",type,"&sort=",sort,facet_parameters,sep="")
-  #print(query)
+  print(query)
   x <- fromJSON(query)
   
   return(x)
@@ -26,7 +26,7 @@ busca_oasisbr_heatmap <- function(url="http://172.16.17.42:8080/solr/biblio/sele
                                   rows="1",
                                   wt="json") {
   query <- paste(url,"&q=",URLencode(q),"&rows=",rows,"&wt=",wt,sep="")
-  #print(query)
+  print(query)
   x <- fromJSON(query)
   
   return(x)
