@@ -29,9 +29,9 @@ mod_graficos_evolucao_UI("graficos_evolucao")))),
 
 
 #====== ABA === ANÁLISES AVANÇADAS =============================================
-tabPanel("Análises avançadas",
-#====== MODULO ANALISES AVANCADAS UI         
-mod_analises_avancadas_UI("analises_avancadas")
+# tabPanel("Análises avançadas",
+# #====== MODULO ANALISES AVANCADAS UI         
+# mod_analises_avancadas_UI("analises_avancadas")
 #===============================================================================
 
 )
